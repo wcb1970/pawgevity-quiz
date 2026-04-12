@@ -447,6 +447,36 @@ function Gate({ data, onCapture }) {
     const vetMap      = { recent:"Within 3 months", mid:"4-6 months ago", overdue:"6-12 months ago", long:"Over a year ago", unsure:"Not sure" };
 
     try {
+      // Step 1 — Create/update profile with all dog data
+      await fetch(`https://a.klaviyo.com/client/profiles/?company_id=${KLAVIYO_PUBLIC_KEY}`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "revision": "2023-12-15" },
+        body: JSON.stringify({
+          data: {
+            type: "profile",
+            attributes: {
+              email: email,
+              first_name: data.name || "",
+              properties: {
+                dog_name:          data.name                               || "",
+                dog_breed:         breedMap[data.breed]   || data.breed   || "",
+                dog_age:           ageMap[data.age]       || data.age     || "",
+                primary_concern:   concernMap[data.concern]|| data.concern|| "",
+                current_routine:   routineMap[data.routine]|| data.routine|| "",
+                observable_signal: signalMap[data.signal]  || data.signal || "",
+                last_vet_visit:    vetMap[data.vet]        || data.vet    || "",
+                source:            "pawgevity_wellness_quiz",
+                quiz_completed_date: new Date().toISOString().split("T")[0],
+                has_supplement:    data.routine !== "none" ? "Yes" : "No",
+                vet_overdue:       (data.vet === "overdue" || data.vet === "long") ? "Yes" : "No",
+                dog_is_older:      (data.age === "senior2" || data.age === "senior3") ? "Yes" : "No",
+              }
+            }
+          }
+        })
+      });
+
+      // Step 2 — Subscribe to list (correct Klaviyo client API structure)
       await fetch(`https://a.klaviyo.com/client/subscriptions/?company_id=${KLAVIYO_PUBLIC_KEY}`, {
         method: "POST",
         headers: { "content-type": "application/json", "revision": "2023-12-15" },
@@ -457,37 +487,20 @@ function Gate({ data, onCapture }) {
               profile: {
                 data: {
                   type: "profile",
-                  attributes: {
-                    email: email,
-                    first_name: data.name || "",
-                    properties: {
-                      // Dog profile — all quiz answers as Klaviyo profile properties
-                      dog_name:            data.name        || "",
-                      dog_breed:           breedMap[data.breed]   || data.breed   || "",
-                      dog_age:             ageMap[data.age]       || data.age     || "",
-                      primary_concern:     concernMap[data.concern] || data.concern || "",
-                      current_routine:     routineMap[data.routine] || data.routine || "",
-                      observable_signal:   signalMap[data.signal]   || data.signal  || "",
-                      last_vet_visit:      vetMap[data.vet]         || data.vet     || "",
-                      // Source tracking
-                      source:              "pawgevity_wellness_quiz",
-                      quiz_completed_date: new Date().toISOString().split("T")[0],
-                      // Flags for flow branching
-                      has_supplement:      data.routine !== "none" ? "Yes" : "No",
-                      vet_overdue:         (data.vet === "overdue" || data.vet === "long") ? "Yes" : "No",
-                      dog_is_older:        (data.age === "senior2" || data.age === "senior3") ? "Yes" : "No",
-                    }
-                  }
+                  attributes: { email: email }
                 }
-              },
-              list_id: KLAVIYO_LIST_ID,
-              custom_source: "Pawgevity Wellness Quiz",
+              }
+            },
+            relationships: {
+              list: {
+                data: { type: "list", id: KLAVIYO_LIST_ID }
+              }
             }
           }
         })
       });
+
     } catch(e) {
-      // Silent fail — never block the user from seeing results
       console.error("Klaviyo error:", e);
     }
 
