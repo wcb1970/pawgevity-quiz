@@ -330,7 +330,7 @@ function Landing({ onStart }) {
         <h1 style={l.h1}>
           Build your dog's<br/>
           <em style={l.em}>personalized wellness profile</em>
-          <span style={{display:'block',fontFamily:B.ff,fontStyle:'normal',fontWeight:400,fontSize:'clamp(16px,4vw,20px)',color:B.taupe,marginTop:6,lineHeight:1.3}}>— and see what may be worth a closer look.</span>
+          <span style={{display:"block",fontFamily:B.ff,fontStyle:"normal",fontWeight:400,fontSize:"clamp(16px,4vw,20px)",color:B.taupe,marginTop:6,lineHeight:1.3}}>— and see what may be worth a closer look.</span>
         </h1>
 
         <p style={l.tagline}>“They gave you their best years. Now it’s your turn.”</p>
