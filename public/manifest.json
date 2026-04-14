@@ -1,9 +1,1 @@
-{
-  "short_name": "Pawgevity",
-  "name": "Pawgevity Dog Wellness Profile",
-  "icons": [],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#0B4D37",
-  "background_color": "#FAF7F1"
-}
+{"short_name":"Pawgevity","name":"Pawgevity Dog Wellness Profile","start_url":".","display":"standalone","theme_color":"#0B4D37","background_color":"#FAF7F1"}
