@@ -2,17 +2,37 @@ import { useState, useEffect, useRef } from "react";
 
 // ─── BRAND ────────────────────────────────────────────────────────────────────
 const B = {
-  olive:  "#685820", oliveM: "#8B7A2E", oliveL: "#F5EFD9",
-  forest: "#0B4D37", forestM:"#156B4F", forestL:"#E8F4EF",
-  cream:  "#FAF7F1", warm:   "#F3EDE3",
-  navy:   "#0D1B14", text:   "#1C2B22", sub:    "#4A6355", muted:  "#7A9088",
-  border: "#DDE6E1", white:  "#FFFFFF",
-  coral:  "#C0391A", coralL: "#FAEAE6",
-  gold:   "#B07820", goldL:  "#FAF3E0",
-  teal:   "#0B7490", tealL:  "#E5F6FA",
-  plum:   "#5B35A0", plumL:  "#F0EBFA",
-  ff:     "'Fraunces', serif",
-  fn:     "'Outfit', sans-serif",
+  // Pawgevity brand — from design system
+  plum:   "#5A1E36",  plumM:  "#7A2848",  plumL:  "#F9EFF2",
+  gold:   "#B8874F",  goldM:  "#D4A373",  goldL:  "#E6C08A",
+  goldXL: "#FBF3E3",
+  cream:  "#F6E7D8",  creamL: "#FAF4EE",
+  taupe:  "#836953",
+  white:  "#FFFFFF",
+
+  // App accent (kept for quiz UI contrast)
+  forest: "#0B4D37",  forestM:"#156B4F",  forestL:"#E8F4EF",
+
+  // Olive (paw logo)
+  olive:  "#685820",  oliveM: "#8B7A2E",  oliveL: "#F5EFD9",
+
+  // Other pillars
+  coral:  "#C0391A",  coralL: "#FAEAE6",
+  teal:   "#0B7490",  tealL:  "#E5F6FA",
+  purp:   "#5B35A0",  purpL:  "#F0EBFA",
+
+  // Text
+  navy:   "#2A0F1B",  text:   "#3D1A28",  sub:    "#836953",  muted:  "#A08070",
+  border: "#E8D5C4",
+
+  // Gradients
+  goldGrad: "linear-gradient(135deg, #B8874F 0%, #D4A373 50%, #E6C08A 100%)",
+  plumGrad: "linear-gradient(145deg, #3D1225 0%, #5A1E36 55%, #7A2848 100%)",
+
+  // Fonts — Pawgevity brand spec
+  ff:  "'Playfair Display', serif",   // Headlines
+  fn:  "'Inter', sans-serif",          // Body/UI
+  fc:  "'Cinzel', serif",              // Badges/accent labels
 };
 
 // ─── QUIZ FLOW — modeled on Farmer's Dog / Ollie onboarding ──────────────────
@@ -118,24 +138,149 @@ const STEPS = [
   },
 ];
 
-// ─── PILLAR MAP ───────────────────────────────────────────────────────────────
+// ─── PILLAR CONFIG ────────────────────────────────────────────────────────────
+const PILLARS_CFG = {
+  joint:  { label:"Joint & Mobility",  color:B.forest, bg:B.forestL, icon:"🦴" },
+  coat:   { label:"Skin & Coat",       color:B.gold,   bg:B.goldXL,  icon:"✨" },
+  gut:    { label:"Gut & Immune",      color:B.teal,   bg:B.tealL,   icon:"🛡️" },
+  brain:  { label:"Brain & Cognitive", color:B.purp,   bg:B.purpL,   icon:"🧠" },
+  inflam: { label:"Inflammation",      color:B.coral,  bg:B.coralL,  icon:"🔥" },
+};
+
+// Keep for backwards compat with gate screen
 const PILLAR_COLORS = {
-  "Joint & Mobility":   { color:B.forest,  bg:B.forestL, icon:"🦴" },
-  "Skin & Coat":        { color:B.gold,    bg:B.goldL,   icon:"✨" },
-  "Gut & Immune":       { color:B.teal,    bg:B.tealL,   icon:"🛡️" },
-  "Brain & Cognitive":  { color:B.plum,    bg:B.plumL,   icon:"🧠" },
-  "Inflammation":       { color:B.coral,   bg:B.coralL,  icon:"🔥" },
-  "General Wellness":   { color:B.forest,  bg:B.forestL, icon:"🐾" },
+  "Joint & Mobility":   { color:B.forest, bg:B.forestL, icon:"🦴" },
+  "Skin & Coat":        { color:B.gold,   bg:B.goldXL,  icon:"✨" },
+  "Gut & Immune":       { color:B.teal,   bg:B.tealL,   icon:"🛡️" },
+  "Brain & Cognitive":  { color:B.purp,   bg:B.purpL,   icon:"🧠" },
+  "Inflammation":       { color:B.coral,  bg:B.coralL,  icon:"🔥" },
+  "General Wellness":   { color:B.forest, bg:B.forestL, icon:"🐾" },
 };
 
 const MYTHS = {
-  joint:  { myth:"Most owners assume stiffness is just aging.",   truth:"It's usually the earliest sign of joint inflammation — and one of the most manageable when caught at this stage." },
-  coat:   { myth:"Most owners treat coat issues with shampoos.",  truth:"Coat condition almost always reflects what's happening internally. External products address the symptom, not the cause." },
-  gut:    { myth:"Most owners see appetite changes as 'pickiness.'", truth:"Inconsistent appetite is one of the most reliable early signals of gut microbiome shifts — which affect immunity, energy, and mood." },
-  brain:  { myth:"Most owners attribute cognitive changes to 'getting older.'", truth:"Early behavioral shifts often appear 6–12 months before noticeable decline. The window for meaningful intervention is now." },
-  inflam: { myth:"Most owners assume their dog would show pain more obviously.", truth:"Dogs instinctively mask discomfort. Restlessness and position-shifting are often the only observable signs of chronic low-level inflammation." },
-  unsure: { myth:"Most owners who aren't sure yet have already noticed something.", truth:"The fact that you're here means your instincts are working. Something small has likely already shifted — and that's exactly the right time to look." },
+  joint:  { myth:"It can be easy to assume stiffness is just a normal part of getting older.", truth:"In many dogs, early changes in movement may be one of the first things worth paying attention to — and they can be quite manageable when noticed early on." },
+  coat:   { myth:"Coat changes are often addressed with grooming products or bathing routines.", truth:"Coat condition can sometimes reflect what's happening internally — things like nutrition and general wellbeing — rather than being purely a grooming matter." },
+  gut:    { myth:"Changes in appetite or digestion are often assumed to be a phase or pickiness.", truth:"Appetite and digestive patterns can be worth paying closer attention to. They sometimes reflect shifts in overall wellbeing that are worth discussing with a vet." },
+  brain:  { myth:"Behavioral shifts in older dogs are often attributed simply to slowing down with age.", truth:"Gradual changes in alertness or responsiveness can be worth monitoring more closely — especially as dogs get older, when early awareness may make a meaningful difference." },
+  inflam: { myth:"If a dog were uncomfortable, most owners expect to see clearer signs of it.", truth:"Dogs often don't display discomfort in obvious ways. Subtle changes like restlessness or position-shifting can sometimes be worth noting and discussing with your vet." },
+  unsure: { myth:"Not being sure which area to focus on can feel like there's nothing to act on.", truth:"Simply being aware and curious about your dog's wellbeing is a meaningful starting point. This profile may help bring some of those observations into clearer focus." },
 };
+
+// ─── SCORING ENGINE ───────────────────────────────────────────────────────────
+// Higher score = more attention needed. Lowest-scoring pillars = stable.
+function calculateScores(data) {
+  // Base: all pillars start at 0 concern
+  const s = { joint:0, coat:0, gut:0, brain:0, inflam:0 };
+
+  // ── 1. Primary concern weights (highest signal, most direct) ──
+  const concernWeights = {
+    joint:  { joint:2, inflam:1 },
+    coat:   { coat:2, gut:1 },
+    gut:    { gut:2, inflam:1 },
+    brain:  { brain:2, gut:1 },
+    inflam: { inflam:2, joint:1 },
+    unsure: { joint:1, brain:1, coat:1, gut:1, inflam:1 }, // spread concern equally
+  };
+  const cw = concernWeights[data.concern] || {};
+  Object.entries(cw).forEach(([k,v]) => { s[k] = (s[k]||0) + v; });
+
+  // ── 2. Observable signal weights (secondary confirmation) ──
+  const signalWeights = {
+    mobility:  { joint:1, inflam:1 },
+    energy:    { brain:1, gut:1 },
+    coat:      { coat:1, gut:1 },
+    appetite:  { gut:2 },
+    comfort:   { inflam:1, joint:1 },
+    none:      {},
+  };
+  const sw = signalWeights[data.signal] || {};
+  Object.entries(sw).forEach(([k,v]) => { s[k] = (s[k]||0) + v; });
+
+  // ── 3. Age modifiers — older dogs carry higher baseline risk ──
+  const ageMods = {
+    young:   {},
+    mid:     {},
+    senior1: { joint:1, brain:1, inflam:1 },        // 7-8 yrs
+    senior2: { joint:2, brain:2, inflam:2 },        // 9-10 yrs
+    senior3: { joint:2, brain:2, inflam:2, gut:1 }, // 11+ yrs
+  };
+  const am = ageMods[data.age] || {};
+  Object.entries(am).forEach(([k,v]) => { s[k] = (s[k]||0) + v; });
+
+  // ── 4. Breed tendencies (light signal, acknowledged uncertainty) ──
+  const breedMods = {
+    retriever: { joint:1, coat:1 },           // Labs/Goldens: hips, coat
+    shepherd:  { joint:1, gut:1 },            // GSDs: hips, digestion
+    bulldog:   { inflam:1, joint:1, gut:1 },  // Pit Bulls: skin, joints
+    large:     { joint:1, inflam:1 },         // Large breeds: general joint stress
+    small:     { gut:1, brain:1 },            // Small breeds: digestion, cognitive
+    mixed:     {},
+  };
+  const bm = breedMods[data.breed] || {};
+  Object.entries(bm).forEach(([k,v]) => { s[k] = (s[k]||0) + v; });
+
+  // ── 5. Routine modifier — no supplement support means higher vulnerability ──
+  if (data.routine === "none") {
+    Object.keys(s).forEach(k => { s[k] += 0.5; });
+  }
+  if (data.routine === "joint_supp") {
+    s.joint = Math.max(0, s.joint - 1); // being addressed, reduce concern slightly
+  }
+
+  // ── 6. Vet visit — overdue means we have less data ──
+  if (data.vet === "long" || data.vet === "overdue") {
+    Object.keys(s).forEach(k => { s[k] += 0.3; });
+  }
+
+  // Round all scores to 1 decimal
+  Object.keys(s).forEach(k => { s[k] = Math.round(s[k] * 10) / 10; });
+  return s;
+}
+
+function rankPillars(scores) {
+  // Sort descending — highest concern first
+  return Object.entries(scores)
+    .sort((a, b) => b[1] - a[1])
+    .map(([id, score], i) => ({
+      id, score,
+      label:  PILLARS_CFG[id].label,
+      color:  PILLARS_CFG[id].color,
+      bg:     PILLARS_CFG[id].bg,
+      icon:   PILLARS_CFG[id].icon,
+      // Tier: top 1 = Primary, next 2 = Watch, bottom 2 = Stable
+      tier: i === 0 ? "primary" : i <= 2 ? "watch" : "stable",
+    }));
+}
+
+function getConfidence(data) {
+  // Count meaningful answers (non-empty, non-unsure)
+  let meaningful = 0;
+  if (data.name)                           meaningful++;
+  if (data.age && data.age !== "unsure")   meaningful++;
+  if (data.breed)                          meaningful++;
+  if (data.concern && data.concern !== "unsure") meaningful++;
+  if (data.signal && data.signal !== "none")     meaningful++;
+  if (data.vet && data.vet !== "unsure")         meaningful++;
+  if (meaningful >= 5) return { level:"High",     label:"Reasonably complete profile", note:"Overview shaped by 5–6 inputs including age, breed, area of concern, and things you've observed." };
+  if (meaningful >= 3) return { level:"Moderate", label:"Partial profile", note:"Overview shaped by 3–4 inputs. More context could help refine this further." };
+  return               { level:"Low",      label:"General overview only", note:"Based on limited inputs. Treat this overview as general context rather than a specific finding." };
+}
+
+function getPillarExplanation(id, data) {
+  const name = data.name || "your dog";
+  const age  = data.age;
+  const isOlder = age === "senior2" || age === "senior3";
+  const explanations = {
+    joint: isOlder
+      ? `As dogs get older, joint comfort can become more of a factor in their day-to-day experience. Based on what you've shared about ${name}'s age, breed, and the signals you're noticing, this may be an area worth exploring with your vet and paying closer attention to over time.`
+      : `The signals you've described — alongside what's generally known about ${name}'s breed — suggest joint health may be worth keeping an eye on. Paying attention to this area earlier rather than later can often make a meaningful difference.`,
+    coat: `Coat changes can sometimes reflect what's happening more broadly with a dog's health — things like nutrition or general wellbeing — rather than being purely a grooming matter. Based on what you've described, this may be an area worth looking into further.`,
+    gut: `A dog's digestive health is connected to many other aspects of their wellbeing. The appetite and digestive patterns you've noticed in ${name} may be worth paying closer attention to, especially at this life stage. This is a good area to raise with your vet if you haven't already.`,
+    brain: `Gradual shifts in alertness or responsiveness are easy to attribute to simply slowing down with age — and sometimes that's exactly what it is. But it can also be worth monitoring more closely, particularly in older dogs, as early awareness tends to offer more options.`,
+    inflam: `Dogs don't always show discomfort in obvious ways. Subtle changes like restlessness or difficulty settling can sometimes reflect ongoing low-level inflammation. Based on what you've shared, this may be an area worth discussing with your vet and supporting proactively.`,
+  };
+  return explanations[id] || `Based on what you've shared about ${name}, this area may be worth paying closer attention to. Your vet can help you evaluate what any of these observations might mean in practice.`;
+}
 
 // ─── LOGO ─────────────────────────────────────────────────────────────────────
 function Logo({ light=false }) {
@@ -153,8 +298,8 @@ function Logo({ light=false }) {
         </svg>
       </div>
       <div>
-        <div style={{fontFamily:B.fn,fontWeight:800,fontSize:19,color:c,letterSpacing:"-0.02em",lineHeight:1}}>pawgevity</div>
-        <div style={{fontFamily:B.fn,fontWeight:500,fontSize:10,color:s,marginTop:2,letterSpacing:"0.05em",textTransform:"uppercase"}}>Wellness Profile</div>
+        <div style={{fontFamily:B.ff,fontWeight:700,fontSize:19,color:c,letterSpacing:"-0.01em",lineHeight:1}}>pawgevity</div>
+        <div style={{fontFamily:B.fc,fontWeight:600,fontSize:9,color:s,marginTop:2,letterSpacing:"0.12em",textTransform:"uppercase"}}>Wellness Profile</div>
       </div>
     </div>
   );
@@ -168,36 +313,42 @@ function Landing({ onStart }) {
   return (
     <div style={l.root}>
       <div style={l.bg1}/><div style={l.bg2}/>
-      <nav style={l.nav}>
+      {/* Plum nav strip — brand accent at top */}
+      <div style={l.navStrip}>
+        <div style={l.goldLine}/>
+        <nav style={l.nav}>
         <Logo light/>
-        <div style={l.navPill}>Free · Takes 90 seconds</div>
+        <div style={l.navPill}>Free — only takes 90 seconds</div>
       </nav>
 
       <div style={{...l.hero, opacity:v?1:0, transform:v?"none":"translateY(24px)", transition:"all 0.7s cubic-bezier(0.34,1.1,0.64,1)"}}>
         <div style={l.badge}>
           <span style={l.dot}/>
-          <span>47,000+ dog wellness profiles built</span>
+          <span>You're already paying attention — that matters.</span>
         </div>
 
         <h1 style={l.h1}>
           Build your dog's<br/>
-          <em style={l.em}>personalized wellness profile.</em>
+          <em style={l.em}>personalized wellness profile</em>
+          <span style={{display:'block',fontFamily:B.ff,fontStyle:'normal',fontWeight:400,fontSize:'clamp(16px,4vw,20px)',color:B.taupe,marginTop:6,lineHeight:1.3}}>— and see what may be worth a closer look.</span>
         </h1>
 
+        <p style={l.tagline}>“They gave you their best years. Now it’s your turn.”</p>
+
         <p style={l.p}>
-          Answer 6 questions about your dog and we'll identify which of the 5 key health areas need the most attention right now — and what to do about it. Free, takes 90 seconds.
+          Answer 6 quick questions. We'll highlight which of the 5 key wellness areas may need more attention — based on your dog's age, breed, and the signals you're already noticing.
         </p>
 
         {/* The Scratch-style myth hook */}
         <div style={l.mythCard}>
           <div style={l.mythLabel}>🔬 Did you know?</div>
           <p style={l.mythText}>
-            <strong>91% of dog owners who complete this profile discover an area they weren't monitoring.</strong> The most common is the one their dog shows the fewest obvious signs of.
+            Many early changes in dogs are subtle — often in areas that don't show obvious signs yet. This profile helps bring those areas into focus.
           </p>
         </div>
 
         <div style={l.stats}>
-          {[{n:"6",l:"Questions"},{n:"90 sec",l:"To complete"},{n:"5",l:"Health areas checked"}].map((s,i)=>(
+          {[{n:"6",l:"Questions"},{n:"~90 sec",l:"To complete"},{n:"5",l:"Wellness areas"}].map((s,i)=>(
             <div key={i} style={l.stat}>
               <div style={l.statN}>{s.n}</div>
               <div style={l.statL}>{s.l}</div>
@@ -208,11 +359,11 @@ function Landing({ onStart }) {
         <button style={l.cta} onClick={onStart}
           onMouseEnter={e=>e.currentTarget.style.transform="translateY(-2px)"}
           onMouseLeave={e=>e.currentTarget.style.transform="none"}>
-          Build My Dog's Profile →
+          Start Your Dog's Wellness Profile →
         </button>
-        <p style={l.ctaNote}>Free · No credit card · 90 seconds</p>
+        <p style={l.ctaNote}>Free · No credit card · Takes ~90 seconds</p>
         <div style={l.trust}>
-          {["✓ Based on veterinary wellness research","✓ Personalized to your dog's breed and age","✓ Specific — not generic advice"].map((t,i)=>(
+          {["✓ Built around widely recognized canine wellness principles","✓ Guided by your dog's age, breed tendencies, and what you're observing","✓ Clear, practical guidance — not generic advice"].map((t,i)=>(
             <div key={i} style={l.trustItem}>{t}</div>
           ))}
         </div>
@@ -221,9 +372,9 @@ function Landing({ onStart }) {
       {/* Social proof */}
       <div style={{...l.quotes, opacity:v?1:0, transition:"opacity 1.1s ease 0.5s"}}>
         {[
-          {name:"Sandra M.", loc:"Sacramento, CA", q:"I genuinely didn't know Bella's coat issues were pointing to something internal. This changed how I think about her health.", s:5},
-          {name:"Mrs. Jean T.", loc:"Atlanta, GA", q:"Rudy had been slowing down for months. I thought it was just age. This showed me it was something I could actually help with.", s:5},
-          {name:"Lisa K.", loc:"Chicago, IL", q:"The profile was so specific to Louie — not generic advice like 'give him fish oil.' Real, actionable information.", s:5},
+          {name:"Sandra M.", loc:"Sacramento, CA", q:"I hadn't really connected Bella's coat changes to what might be happening inside. This gave me a completely different way of thinking about it.", s:5},
+          {name:"Mrs. Jean T.", loc:"Atlanta, GA", q:"Rudy had been slowing down and I just assumed it was age. This helped me realize there were things I could look into and actually do something about.", s:5},
+          {name:"Lisa K.", loc:"Chicago, IL", q:"It felt like it was actually about Louie, not just a generic dog wellness checklist. That specificity was what made it useful.", s:5},
         ].map((t,i)=>(
           <div key={i} style={l.qCard}>
             <div style={l.stars}>{"★".repeat(t.s)}</div>
@@ -232,7 +383,12 @@ function Landing({ onStart }) {
           </div>
         ))}
       </div>
-      <div style={l.dis}>For informational purposes only. Not veterinary advice. Consult your veterinarian for your dog's health. † Not evaluated by the FDA.</div>
+      <div style={l.dis}>This profile is for general wellness awareness only. It is not veterinary advice and should not replace professional care. Always consult your veterinarian about your dog's health. † These statements have not been evaluated by the Food and Drug Administration.</div>
+      <div style={{textAlign:"center",paddingTop:12,paddingBottom:4}}>
+        <a href="/privacy" style={{fontSize:11,color:B.muted,textDecoration:"none",fontFamily:B.fc,letterSpacing:"0.06em"}}>Privacy Policy</a>
+        <span style={{color:B.border,margin:"0 8px"}}>·</span>
+        <a href="mailto:hello@pawgevitywellness.com" style={{fontSize:11,color:B.muted,textDecoration:"none",fontFamily:B.fc,letterSpacing:"0.06em"}}>Contact</a>
+      </div>
     </div>
   );
 }
@@ -317,7 +473,7 @@ function QuizStep({ step, data, onAnswer, onNext, stepIdx, total }) {
               return (
                 <button key={i} style={{
                   ...q.choice,
-                  ...(isSel   ? {borderColor:B.forest,background:B.forestL,transform:"scale(1.01)"} : {}),
+                  ...(isSel   ? {borderColor:"#B8874F",background:"#FBF3E3",transform:"scale(1.01)"} : {}),
                   ...(isOther ? {opacity:0.3,transform:"scale(0.97)"} : {}),
                   transition:"all 0.22s cubic-bezier(0.34,1.2,0.64,1)",
                 }} onClick={()=>selectChoice(c,i)} disabled={selected!==null}>
@@ -351,7 +507,7 @@ function QuizStep({ step, data, onAnswer, onNext, stepIdx, total }) {
               }}
               onClick={dismissMyth}
             >
-              Got it — continue building {data.name}'s profile →
+              Understood — continue →
             </button>
           </div>
         </div>
@@ -369,12 +525,12 @@ function Calculating({ data, onDone }) {
     : "General Wellness";
 
   const steps2 = [
-    `Analyzing ${data.name}'s breed profile…`,
-    `Cross-referencing age-related wellness patterns…`,
-    `Evaluating ${data.name}'s primary concern area…`,
-    `Mapping to 5 wellness pillars…`,
-    `Building personalized findings…`,
-    `${data.name}'s profile is ready.`,
+    `Reviewing ${data.name}'s age and breed context…`,
+    `Considering the signals you've described…`,
+    `Weighing inputs across the 5 wellness areas…`,
+    `Putting together a personalized overview…`,
+    `Adding some helpful context to each area…`,
+    `${data.name}'s profile is ready to view.`,
   ];
 
   useEffect(()=>{
@@ -394,8 +550,8 @@ function Calculating({ data, onDone }) {
 
         <div style={calc.ringWrap}>
           <svg width="120" height="120" style={{transform:"rotate(-90deg)"}}>
-            <circle cx="60" cy="60" r="50" fill="none" stroke={B.forestL} strokeWidth="8"/>
-            <circle cx="60" cy="60" r="50" fill="none" stroke={B.forest} strokeWidth="8"
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#F0DCC8" strokeWidth="8"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#D4A373" strokeWidth="8"
               strokeDasharray={`${(pct/100)*314} 314`} strokeLinecap="round"
               style={{transition:"stroke-dasharray 0.6s ease"}}/>
           </svg>
@@ -412,7 +568,7 @@ function Calculating({ data, onDone }) {
         </div>
 
         <div style={{...calc.pillarPill, background:PILLAR_COLORS[pillar]?.bg, color:PILLAR_COLORS[pillar]?.color, border:`1px solid ${PILLAR_COLORS[pillar]?.color}44`}}>
-          {PILLAR_COLORS[pillar]?.icon} Primary focus: {pillar}
+          {PILLAR_COLORS[pillar]?.icon} Area to explore first: {pillar}
         </div>
       </div>
     </div>
@@ -425,10 +581,12 @@ function Gate({ data, onCapture }) {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
   const valid = email.includes("@") && email.includes(".");
-  const pillar = data.concern
-    ? (STEPS[3].choices.find(c=>c.value===data.concern)?.pillar || "General Wellness")
-    : "General Wellness";
-  const pc = PILLAR_COLORS[pillar] || PILLAR_COLORS["General Wellness"];
+  // Use scoring engine to determine primary concern for gate teaser
+  const gScores  = calculateScores(data);
+  const gRanked  = rankPillars(gScores);
+  const gPrimary = gRanked[0];
+  const pillar   = gPrimary?.label || "General Wellness";
+  const pc       = { color:gPrimary?.color||B.forest, bg:gPrimary?.bg||B.forestL, icon:gPrimary?.icon||"🐾" };
 
   const submit = async () => {
     if (!valid) { setErr("Please enter a valid email address."); return; }
@@ -515,7 +673,7 @@ function Gate({ data, onCapture }) {
           <div style={{...g.previewAvatar, background:pc.color}}>{data.name?.[0]?.toUpperCase()}</div>
           <div>
             <div style={g.previewName}>{data.name}'s Wellness Profile</div>
-            <div style={g.previewSub}>6 questions analyzed · Profile complete</div>
+            <div style={g.previewSub}>6 questions · 5 areas reviewed · Profile ready</div>
           </div>
           <div style={g.previewCheck}>✓</div>
         </div>
@@ -523,7 +681,7 @@ function Gate({ data, onCapture }) {
         {/* Blurred cards */}
         <div style={g.blurWrap}>
           <div style={g.blurInner}>
-            {["Primary wellness focus","Key finding for this age","Recommended action plan","Supplement guidance","Vet talking points"].map((item,i)=>(
+            {["Primary area to explore","Age-related context","Starting point suggestions","Supplement considerations","Questions for your vet"].map((item,i)=>(
               <div key={i} style={g.blurItem}>
                 <div style={g.blurDot}/>
                 <div style={{height:12, background:B.border, borderRadius:6, flex:1}}/>
@@ -533,7 +691,7 @@ function Gate({ data, onCapture }) {
           <div style={g.blurOverlay}/>
           <div style={g.lockBadge}>
             <span>🔒</span>
-            <span>Enter email to unlock {data.name}'s full profile</span>
+            <span>Enter your email to see the full overview</span>
           </div>
         </div>
 
@@ -542,10 +700,10 @@ function Gate({ data, onCapture }) {
           <span style={{fontSize:22}}>{pc.icon}</span>
           <div>
             <div style={{fontSize:14,fontWeight:700,color:pc.color,marginBottom:3}}>
-              {pillar} is {data.name}'s primary area to address
+              {pillar} may be worth exploring first for {data.name}
             </div>
             <div style={{fontSize:13,color:B.sub,lineHeight:1.5}}>
-              Your profile includes specific actions for this — plus all 5 health areas.
+              Your full overview includes some context on this area and practical suggestions for all 5.
             </div>
           </div>
         </div>
@@ -554,7 +712,7 @@ function Gate({ data, onCapture }) {
       {/* Form */}
       <div style={g.form}>
         <h2 style={g.formH}>Where should we send {data.name}'s profile?</h2>
-        <p style={g.formP}>Enter your email and we'll show you the complete findings right now — plus a personalized action plan specific to {data.name}'s age, breed, and primary concern.</p>
+        <p style={g.formP}>Enter your email and we'll share the full overview right away — including some thoughtful context for each area and a practical starting point based on what you've told us.</p>
 
         <label style={g.label}>Your email address</label>
         <input style={{...g.input,...(err?{borderColor:B.coral}:{})}} type="email"
@@ -565,11 +723,15 @@ function Gate({ data, onCapture }) {
 
         <button style={{...g.btn,opacity:valid?1:0.45}} onClick={submit} disabled={loading||!valid}>
           {loading
-            ? <><span style={g.spin}/>Unlocking profile…</>
+            ? <><span style={g.spin}/>Preparing your profile…</>
             : `See ${data.name}'s Full Profile →`}
         </button>
         <p style={g.fine}>Free · No spam · Unsubscribe anytime · By pawgevity™</p>
-        <p style={g.dis}>† For informational purposes only. Not veterinary advice. Not evaluated by the FDA. Consult a licensed veterinarian for your dog's health concerns. Individual results may vary.</p>
+        <p style={{textAlign:"center",fontSize:11,color:B.muted,marginTop:6}}>
+          By continuing you agree to our{" "}
+          <a href="/privacy" style={{color:B.taupe,textDecoration:"underline",textDecorationColor:B.border}}>Privacy Policy</a>
+        </p>
+        <p style={g.dis}>† This overview is for general wellness awareness only. It is not a diagnosis or veterinary advice. Always consult your vet for guidance on your dog's health. Not evaluated by the FDA. Individual context varies.</p>
       </div>
     </div>
   );
@@ -580,39 +742,50 @@ function Results({ data, email }) {
   const [vis, setVis] = useState(false);
   useEffect(()=>{ setTimeout(()=>setVis(true),200); },[]);
 
-  const pillar = data.concern
-    ? (STEPS[3].choices.find(c=>c.value===data.concern)?.pillar || "General Wellness")
-    : "General Wellness";
-  const pc = PILLAR_COLORS[pillar];
-  const myth = data.concern ? MYTHS[data.concern] : null;
-  const ageGroup = data.age;
-  const isYoung = ageGroup === "young" || ageGroup === "mid";
-  const isOlder = ageGroup === "senior2" || ageGroup === "senior3";
+  // ── Run the scoring engine ──
+  const scores     = calculateScores(data);
+  const ranked     = rankPillars(scores);
+  const primary    = ranked[0];
+  const watchAreas = ranked.slice(1,3);
+  const stable     = ranked.slice(3);
+  const confidence = getConfidence(data);
+  const myth       = data.concern ? MYTHS[data.concern] : null;
 
-  const ageInsight = isYoung
-    ? `At ${data.age?.replace("young","under 5 years old").replace("mid","5–6 years old")}, you're in the ideal window to establish healthy baselines. Most health issues that show up at 8–10 years are preventable or manageable if addressed now.`
-    : isOlder
-    ? `At 9+ years, ${data.name}'s health is at the stage where weekly awareness matters most. Small changes are harder to attribute to specific causes without trend data — which is exactly why tracking now is valuable.`
-    : `At 7–8 years, ${data.name} is entering the life stage where the most impactful preventive work happens. The decisions you make now have an outsized effect on the next 3–4 years.`;
+  // Readable labels
+  const ageLabel = {
+    young:"Under 5 yrs", mid:"5–6 yrs", senior1:"7–8 yrs",
+    senior2:"9–10 yrs", senior3:"11+ yrs"
+  }[data.age] || data.age;
+
+  const breedLabel = {
+    retriever:"Golden/Lab", shepherd:"German Shepherd", bulldog:"Pit Bull/Bulldog",
+    large:"Large breed", small:"Small breed", mixed:"Mixed breed"
+  }[data.breed] || data.breed;
 
   const routineInsight = {
-    none:       `${data.name} isn't currently receiving any targeted supplement support. This is actually common — and it means there's meaningful room to improve what you're already doing.`,
-    joint_supp: `You're already addressing joints, which is great. The question is whether it's covering all 5 pillars — joint supplements alone often miss the gut and inflammation pieces.`,
-    multi:      `A multivitamin or probiotic is a solid foundation. The next layer is making sure it's specifically calibrated for ${data.name}'s age and primary concern area.`,
-    rx:         `A vet-recommended diet is a strong base. The gap is usually in the non-prescription pillars — particularly inflammation and cognitive support for dogs over 7.`,
-    multi_supp: `Multiple supplements can be effective — but they can also create gaps or redundancies. A single comprehensive formula often covers more reliably.`,
-  }[data.routine] || `Your current routine is a good starting point.`;
+    none:       `${data.name} isn't currently on a supplement routine — which is very common. It may simply mean there's more that could be explored when the time feels right.`,
+    joint_supp: `It's great that you're already paying attention to joints. It may be worth considering whether the full picture — including areas like gut health and general inflammation support — is also being looked at.`,
+    multi:      `A multivitamin or probiotic is a reasonable starting point. As ${data.name} gets older, it may be worth checking in with your vet about whether the current support is still well-matched.`,
+    rx:         `A vet-recommended diet is a thoughtful foundation. It may be worth asking your vet whether there are additional areas — like inflammation or cognitive wellness — worth supporting alongside it as your dog gets older.`,
+    multi_supp: `Using several supplements can work well. It may occasionally be worth reviewing with your vet to make sure the combination makes sense and there's no unnecessary overlap.`,
+  }[data.routine] || `${data.name}'s current routine is a good starting point.`;
+
+  const tierStyle = {
+    primary:{ label:"Explore First", badge:"→ Explore First", badgeBg:primary.color, chipBg:primary.color+"18", chipColor:primary.color },
+    watch:  { label:"Worth Watching", badge:"👁 Worth Watching",    badgeBg:B.gold,        chipBg:B.goldXL,            chipColor:B.gold },
+    stable: { label:"Stable",        badge:"✓ Stable",         badgeBg:B.forest,      chipBg:B.forestL,           chipColor:B.forest },
+  };
 
   return (
     <div style={r.root}>
-      {/* Header */}
+      {/* Plum header */}
       <div style={r.header}>
         <div style={r.headerNav}><Logo light/><div style={r.hBadge}>Wellness Profile</div></div>
         <div style={{...r.profileCard, opacity:vis?1:0, transform:vis?"none":"translateY(16px)", transition:"all 0.7s ease"}}>
           <div style={r.profileAvatar}>{data.name?.[0]?.toUpperCase()}</div>
           <div>
             <div style={r.profileName}>{data.name}</div>
-            <div style={r.profileMeta}>{data.age?.replace("young","Under 5 yrs").replace("mid","5–6 yrs").replace("senior1","7–8 yrs").replace("senior2","9–10 yrs").replace("senior3","11+ yrs")} · {data.breed?.replace("retriever","Golden/Lab").replace("shepherd","German Shepherd").replace("bulldog","Pit Bull/Bulldog").replace("small","Small breed").replace("large","Large breed").replace("mixed","Mixed breed")}</div>
+            <div style={r.profileMeta}>{ageLabel}{breedLabel ? ` · ${breedLabel}` : ""}</div>
             <div style={r.profileTag}>Profile Complete ✓</div>
           </div>
         </div>
@@ -620,69 +793,90 @@ function Results({ data, email }) {
 
       <div style={r.body}>
 
-        {/* Primary finding */}
-        <div style={{...r.findingCard, borderColor:pc.color, background:pc.bg}}>
-          <div style={{...r.findingTag, background:pc.color}}>{pc.icon} Primary Focus Area</div>
-          <h2 style={{...r.findingTitle, color:pc.color}}>{pillar}</h2>
-          <p style={r.findingText}>
-            Based on {data.name}'s age, breed, current routine, and the signals you've observed — <strong>{pillar}</strong> is the area that needs the most attention right now. This is where targeted support will have the biggest impact.
-          </p>
+        {/* Confidence badge */}
+        <div style={{display:"flex",alignItems:"flex-start",gap:12,background:B.white,borderRadius:14,padding:"14px 16px",border:`1px solid ${B.border}`,boxShadow:"0 1px 6px rgba(0,0,0,0.04)"}}>
+          <div style={{width:36,height:36,borderRadius:10,background:confidence.level==="High"?B.forestL:confidence.level==="Moderate"?B.goldXL:B.coralL,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,flexShrink:0}}>
+            {confidence.level==="High"?"✓":confidence.level==="Moderate"?"~":"!"}
+          </div>
+          <div>
+            <div style={{fontSize:12,fontWeight:700,color:confidence.level==="High"?B.forest:confidence.level==="Moderate"?B.gold:B.coral,fontFamily:B.fc,letterSpacing:"0.06em",textTransform:"uppercase",marginBottom:4}}>{confidence.label}</div>
+            <div style={{fontSize:13,color:B.sub,lineHeight:1.6}}>{confidence.note}</div>
+          </div>
+        </div>
+
+        {/* Primary focus card */}
+        <div style={{...r.findingCard, borderColor:primary.color, background:primary.bg}}>
+          <div style={{...r.findingTag, background:primary.color}}>{primary.icon} Area to Explore First</div>
+          <h2 style={{...r.findingTitle, color:primary.color}}>{primary.label}</h2>
+          <p style={r.findingText}>{getPillarExplanation(primary.id, data)}</p>
           {myth && (
             <div style={r.mythBox}>
-              <div style={{fontSize:13,fontWeight:700,color:pc.color,marginBottom:6}}>🔬 What you may not know yet</div>
+              <div style={{fontSize:12,fontWeight:700,color:primary.color,marginBottom:6,fontFamily:B.fc,letterSpacing:"0.06em",textTransform:"uppercase"}}>🔬 What you may not know yet</div>
               <p style={{fontSize:14,color:B.text,lineHeight:1.7}}>{myth.truth}</p>
             </div>
           )}
         </div>
 
-        {/* Age insight */}
-        <div style={r.card}>
-          <div style={r.cardTitle}>📅 What {data.name}'s age means</div>
-          <p style={r.cardText}>{ageInsight}</p>
-        </div>
-
-        {/* Routine insight */}
-        <div style={r.card}>
-          <div style={r.cardTitle}>💊 About {data.name}'s current routine</div>
-          <p style={r.cardText}>{routineInsight}</p>
-        </div>
-
-        {/* All 5 pillars — status */}
-        <div style={r.card}>
-          <div style={r.cardTitle}>5-Pillar Overview</div>
-          {Object.entries(PILLAR_COLORS).filter(([k])=>k!=="General Wellness").map(([name, pc2],i)=>{
-            const isPrimary = name === pillar;
-            const status = isPrimary ? "Primary focus" : i <= 1 ? "Monitor closely" : "Looking stable";
-            const statusColor = isPrimary ? pc2.color : i <= 1 ? B.gold : B.forest;
-            return (
-              <div key={name} style={r.pillarRow}>
-                <span style={{fontSize:18}}>{pc2.icon}</span>
+        {/* Watch areas */}
+        {watchAreas.length > 0 && (
+          <div style={r.card}>
+            <div style={r.cardTitle}>👁 Worth Keeping an Eye On</div>
+            {watchAreas.map(p=>(
+              <div key={p.id} style={{...r.pillarRow, borderLeft:`4px solid ${p.color}`}}>
+                <span style={{fontSize:20}}>{p.icon}</span>
                 <div style={{flex:1}}>
-                  <div style={{fontSize:14,fontWeight:700,color:pc2.color}}>{name}</div>
+                  <div style={{fontSize:14,fontWeight:700,color:p.color,marginBottom:3}}>{p.label}</div>
+                  <div style={{fontSize:12,color:B.sub,lineHeight:1.55}}>{getPillarExplanation(p.id, data).split(".")[0]}.</div>
                 </div>
-                <div style={{...r.statusChip,background:statusColor+"18",color:statusColor,border:`1px solid ${statusColor}44`}}>
-                  {isPrimary?"⚠️":i<=1?"👁":"✓"} {status}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* 5-pillar ranked overview */}
+        <div style={r.card}>
+          <div style={r.cardTitle}>5-Area Wellness Overview</div>
+          <div style={{fontSize:12,color:B.muted,marginBottom:14,lineHeight:1.5}}>Ordered by what may benefit from the most attention, based on what you've shared about {data.name}. These are general observations — not diagnoses.</div>
+          {ranked.map((p,i)=>{
+            const ts = tierStyle[p.tier];
+            return (
+              <div key={p.id} style={{display:"flex",alignItems:"center",gap:12,marginBottom:10,padding:"10px 12px",background:p.tier==="primary"?p.bg:B.cream,borderRadius:12,border:p.tier==="primary"?`1.5px solid ${p.color}44`:`1px solid ${B.border}`}}>
+                <div style={{width:28,height:28,borderRadius:"50%",background:p.tier==="primary"?p.color:p.tier==="watch"?B.goldXL:B.forestL,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontFamily:B.fc,fontWeight:700,fontSize:11,color:p.tier==="primary"?"#fff":p.tier==="watch"?B.gold:B.forest}}>
+                  {i+1}
+                </div>
+                <span style={{fontSize:18,flexShrink:0}}>{p.icon}</span>
+                <div style={{flex:1}}>
+                  <div style={{fontSize:14,fontWeight:700,color:p.color}}>{p.label}</div>
+                </div>
+                <div style={{fontSize:10,fontWeight:700,padding:"4px 10px",borderRadius:100,background:ts.chipBg,color:ts.chipColor,border:`1px solid ${ts.chipColor}44`,fontFamily:B.fc,letterSpacing:"0.04em",flexShrink:0}}>
+                  {ts.badge}
                 </div>
               </div>
             );
           })}
         </div>
 
+        {/* Routine insight */}
+        <div style={r.card}>
+          <div style={r.cardTitle}>💊 A note on {data.name}'s current routine</div>
+          <p style={r.cardText}>{routineInsight}</p>
+        </div>
+
         {/* What's in your email */}
         <div style={r.emailCard}>
-          <div style={r.emailTitle}>📧 What's in your inbox right now</div>
+          <div style={r.emailTitle}>📧 What we're sending to your inbox</div>
           <p style={{fontSize:14,color:"rgba(255,255,255,0.75)",marginBottom:16,lineHeight:1.6}}>
-            We've sent {data.name}'s complete profile to <strong style={{color:"#fff"}}>{email}</strong>. Your email includes things this page doesn't show:
+            We're sending a more detailed overview to <strong style={{color:"#fff"}}>{email}</strong> with things worth exploring further:
           </p>
           {[
-            `A step-by-step action plan specific to ${data.name}'s ${pillar} focus area`,
-            `The science behind what's driving each priority area`,
-            "A simple 4-week care routine to start this week",
-            "Targeted supplement guidance for this specific profile",
-            "Vet conversation starters for your next appointment",
+            `Practical suggestions for ${data.name}'s ${primary.label} area`,
+            `Some background on why each area may be worth attention`,
+            "A gentle 4-week starting point based on what you've shared",
+            `Supplement context that may be relevant to ${data.name}'s profile`,
+            "A few helpful questions to bring to your next vet visit",
           ].map((item,i)=>(
             <div key={i} style={r.emailItem}>
-              <span style={{color:"#7EDDB0",flexShrink:0}}>✓</span>
+              <span style={{color:"#D4A373",flexShrink:0,fontWeight:700}}>✓</span>
               <span style={{fontSize:14,color:"rgba(255,255,255,0.85)",lineHeight:1.5}}>{item}</span>
             </div>
           ))}
@@ -692,9 +886,9 @@ function Results({ data, email }) {
         <div style={r.card}>
           <div style={r.cardTitle}>What to do right now</div>
           {[
-            {n:"1",title:"Check your inbox",body:`Your personalized action plan for ${data.name} is waiting. The most important steps are in there — specific to what you just told us.`},
-            {n:"2",title:"Track week over week with PawWatch",body:`A single profile tells you where things stand today. Weekly tracking shows the trend. PawWatch is free and takes 2 minutes a week.`},
-            {n:"3",title:"Bring this to your vet",body:`Screenshot this profile or share it at your next appointment. Specific findings give your vet context they can't get from a routine exam alone.`},
+            {n:"1",title:"Check your inbox",body:`We're sending a fuller overview to your email with some practical context and starting points based on what you've shared about ${data.name}.`},
+            {n:"2",title:`Consider tracking ${data.name} week over week`,body:`A single snapshot gives you a starting point. Checking in regularly with PawWatch can help you notice gradual changes over time — which is often when the most useful patterns emerge.`},
+            {n:"3",title:"Share this with your vet",body:`If anything in this overview feels worth exploring, bring it to your next appointment. Your vet is the right person to evaluate what any of these observations might mean for ${data.name}.`},
           ].map((s,i)=>(
             <div key={i} style={r.step}>
               <div style={r.stepN}>{s.n}</div>
@@ -708,34 +902,33 @@ function Results({ data, email }) {
 
         {/* PawWatch CTA */}
         <div style={r.pawCard}>
-          <div style={r.pawIcon}>📱</div>
-          <div style={{flex:1}}>
-            <div style={r.pawTitle}>Track {data.name} week over week</div>
-            <div style={r.pawSub}>PawWatch gives you weekly check-ins, trend charts, and a vet-ready report. Free.</div>
+          <div style={r.trackTop}>
+            <div style={r.pawIcon}>📱</div>
+            <div style={{flex:1}}>
+              <div style={r.pawTitle}>Track {data.name}'s progress over time</div>
+              <div style={r.pawSub}>PawWatch gives you weekly check-ins, trend charts, and a vet-shareable report — free.</div>
+            </div>
           </div>
-          <button style={r.pawBtn} onClick={()=>alert("Opens PawWatch app.")}>Open →</button>
+          <button style={r.pawBtn} onClick={()=>alert("Opens PawWatch app.")}>Open PawWatch — Free →</button>
         </div>
 
         {/* Share */}
         <button style={r.shareBtn} onClick={()=>{
-          if(navigator.share){navigator.share({title:`${data.name}'s Wellness Profile`,text:`I just built a free wellness profile for ${data.name} with Pawgevity. See what areas need attention:`,url:"https://check.pawgevity.com"});}
-          else{navigator.clipboard.writeText("https://check.pawgevity.com");alert("Link copied!");}
-        }}>
-          Share this with another dog owner 🔗
-        </button>
+          if(navigator.share){navigator.share({title:`${data.name}'s Wellness Profile`,text:`I just built a free dog wellness profile with Pawgevity — it's a helpful way to think about your dog's health:`,url:"https://check.pawgevitywellness.com"});}
+          else{navigator.clipboard.writeText("https://check.pawgevitywellness.com");alert("Link copied!");}
+        }}>Share this with another dog owner 🔗</button>
 
         <div style={r.dis}>
-          <strong>Disclaimer:</strong> This profile is for general informational purposes only and does not constitute veterinary medical advice, diagnosis, or treatment. Findings are wellness indicators — not clinical assessments. Always consult a licensed veterinarian for your dog's health. † These statements have not been evaluated by the Food and Drug Administration. Individual results may vary.
+          <strong>Please note:</strong> This overview is for general wellness awareness only. It is not a diagnosis, clinical assessment, or substitute for veterinary care. Everything here is based on general wellness principles and the inputs you've provided — not a medical evaluation of your dog. Please consult your veterinarian for guidance on your dog's health. † These statements have not been evaluated by the Food and Drug Administration. Individual context varies.
         </div>
         <div style={r.footer}>
-          <span style={{fontFamily:B.fn,fontWeight:700,fontSize:13,color:B.muted}}>pawgevity™</span>
-          <span style={{fontSize:11,color:B.border,marginLeft:8}}>· © {new Date().getFullYear()} Pawgevity · Results sent to {email}</span>
+          <div style={{fontFamily:B.fn,fontWeight:700,fontSize:13,color:B.muted}}>pawgevity™</div>
+          <div style={{fontSize:11,color:B.border,marginTop:3}}>Results sent to {email} · © {new Date().getFullYear()} Pawgevity</div>
         </div>
       </div>
     </div>
   );
 }
-
 // ─── ROOT ─────────────────────────────────────────────────────────────────────
 export default function App() {
   const [screen, setScreen]   = useState("land");
@@ -752,7 +945,7 @@ export default function App() {
   return (
     <div style={{fontFamily:`'Outfit',sans-serif`,background:B.cream,minHeight:"100vh",maxWidth:500,margin:"0 auto"}}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&display=swap');
         *{box-sizing:border-box;margin:0;padding:0;}
         button{font-family:'Outfit',sans-serif;cursor:pointer;}
         input{font-family:'Outfit',sans-serif;}
@@ -779,34 +972,41 @@ export default function App() {
 
 // ─── STYLES ───────────────────────────────────────────────────────────────────
 const l = {
-  root:     { background:`linear-gradient(155deg,${B.forest} 0%,${B.forestM} 55%,#1F9E6E 100%)`, minHeight:"100vh", padding:"0 0 48px", position:"relative", overflow:"hidden" },
-  bg1:      { position:"absolute", top:-100, right:-100, width:360, height:360, borderRadius:"50%", background:"rgba(255,255,255,0.04)", pointerEvents:"none" },
-  bg2:      { position:"absolute", bottom:-60, left:-80, width:280, height:280, borderRadius:"50%", background:"rgba(255,255,255,0.03)", pointerEvents:"none" },
-  nav:      { display:"flex", justifyContent:"space-between", alignItems:"center", padding:"20px 24px" },
-  navPill:  { background:"rgba(255,255,255,0.12)", border:"1px solid rgba(255,255,255,0.2)", borderRadius:100, padding:"6px 14px", fontSize:12, fontWeight:600, color:"rgba(255,255,255,0.9)" },
+  // Deep plum hero — Pawgevity brand standard
+  root:     { background:B.creamL, minHeight:"100vh", padding:"0 0 48px", position:"relative", overflow:"hidden" },
+  // Decorative gold orbs for depth
+  bg1:      { position:"absolute", top:-80, right:-80, width:320, height:320, borderRadius:"50%", background:"rgba(184,135,79,0.06)", pointerEvents:"none" },
+  bg2:      { position:"absolute", bottom:-60, left:-60, width:260, height:260, borderRadius:"50%", background:"rgba(184,135,79,0.04)", pointerEvents:"none" },
+  // Gold divider line at top
+  goldLine: { height:3, background:"linear-gradient(90deg,#B8874F,#D4A373,#E6C08A,#D4A373,#B8874F)" },
+  navStrip: { background:B.plum, padding:"0" },
+  nav:      { display:"flex", justifyContent:"space-between", alignItems:"center", padding:"16px 22px" },
+  navPill:  { background:"rgba(184,135,79,0.15)", border:"1px solid rgba(212,163,115,0.35)", borderRadius:100, padding:"6px 16px", fontSize:11, fontWeight:600, color:"#D4A373", fontFamily:B.fc, letterSpacing:"0.1em" },
   hero:     { padding:"16px 24px 32px" },
-  badge:    { display:"inline-flex", alignItems:"center", gap:8, background:"rgba(255,255,255,0.12)", border:"1px solid rgba(255,255,255,0.2)", borderRadius:100, padding:"8px 16px", fontSize:13, fontWeight:600, color:"rgba(255,255,255,0.95)", marginBottom:22 },
-  dot:      { width:8, height:8, borderRadius:"50%", background:"#7EDDB0", display:"inline-block" },
-  h1:       { fontFamily:B.ff, fontSize:"clamp(28px,7vw,42px)", fontWeight:700, color:"#fff", lineHeight:1.2, marginBottom:16 },
-  em:       { display:"block", fontStyle:"italic", color:"#A8F0CD" },
-  p:        { fontSize:16, color:"rgba(255,255,255,0.82)", lineHeight:1.75, marginBottom:22, maxWidth:440 },
-  mythCard: { background:"rgba(255,255,255,0.1)", border:"1px solid rgba(255,255,255,0.18)", borderRadius:16, padding:"16px 18px", marginBottom:22 },
-  mythLabel:{ fontSize:12, fontWeight:700, color:"#A8F0CD", letterSpacing:"0.06em", textTransform:"uppercase", marginBottom:8 },
-  mythText: { fontSize:14, color:"rgba(255,255,255,0.9)", lineHeight:1.7 },
-  stats:    { display:"flex", background:"rgba(255,255,255,0.1)", borderRadius:14, border:"1px solid rgba(255,255,255,0.15)", overflow:"hidden", marginBottom:22 },
-  stat:     { flex:1, padding:"14px 10px", textAlign:"center", borderRight:"1px solid rgba(255,255,255,0.1)" },
-  statN:    { fontFamily:B.ff, fontSize:22, fontWeight:700, color:"#fff", lineHeight:1 },
-  statL:    { fontSize:11, color:"rgba(255,255,255,0.6)", marginTop:4, lineHeight:1.3 },
-  cta:      { display:"block", width:"100%", background:"#fff", color:B.forest, border:"none", borderRadius:16, padding:"20px 24px", fontSize:17, fontWeight:800, textAlign:"center", marginBottom:12, boxShadow:"0 8px 32px rgba(0,0,0,0.22)", letterSpacing:"-0.01em", transition:"transform 0.15s, box-shadow 0.15s" },
-  ctaNote:  { textAlign:"center", fontSize:13, color:"rgba(255,255,255,0.6)", marginBottom:20 },
+  badge:    { display:"inline-flex", alignItems:"center", gap:10, background:"linear-gradient(135deg,#B8874F,#D4A373,#E6C08A)", border:"none", borderRadius:100, padding:"11px 20px", fontSize:13, fontWeight:700, color:"#3D1225", marginBottom:22, fontFamily:B.ff, boxShadow:"0 4px 16px rgba(184,135,79,0.3)", letterSpacing:"-0.01em" },
+  dot:      { width:9, height:9, borderRadius:"50%", background:"#3D1225", display:"inline-block", opacity:0.4 },
+  h1:       { fontFamily:B.ff, fontSize:"clamp(30px,7vw,44px)", fontWeight:700, color:B.plum, lineHeight:1.15, marginBottom:16 },
+  em:       { display:"block", fontStyle:"italic", color:B.gold },
+  tagline:  { fontFamily:B.ff, fontStyle:"italic", fontSize:15, color:B.taupe, marginBottom:18, lineHeight:1.5 },
+  p:        { fontSize:16, color:B.text, lineHeight:1.75, marginBottom:22, maxWidth:440 },
+  mythCard: { background:B.goldXL, border:"1px solid #D4A373", borderRadius:16, padding:"16px 18px", marginBottom:22 },
+  mythLabel:{ fontSize:10, fontWeight:700, color:B.plum, letterSpacing:"0.12em", textTransform:"uppercase", marginBottom:8, fontFamily:B.fc },
+  mythText: { fontSize:14, color:B.text, lineHeight:1.7 },
+  stats:    { display:"flex", background:B.white, borderRadius:14, border:`1px solid ${B.border}`, overflow:"hidden", marginBottom:22, boxShadow:"0 2px 12px rgba(184,135,79,0.1)" },
+  stat:     { flex:1, padding:"14px 10px", textAlign:"center", borderRight:`1px solid ${B.border}` },
+  statN:    { fontFamily:B.ff, fontSize:22, fontWeight:700, color:B.plum, lineHeight:1 },
+  statL:    { fontSize:11, color:B.taupe, marginTop:4, lineHeight:1.3 },
+  // Gold gradient CTA — Pawgevity brand standard
+  cta:      { display:"block", width:"100%", background:"linear-gradient(135deg,#B8874F,#D4A373,#E6C08A)", color:B.plum, border:"none", borderRadius:16, padding:"20px 24px", fontSize:17, fontWeight:800, textAlign:"center", marginBottom:12, boxShadow:"0 8px 32px rgba(184,135,79,0.35)", letterSpacing:"-0.01em", transition:"transform 0.15s, box-shadow 0.15s", fontFamily:B.ff },
+  ctaNote:  { textAlign:"center", fontSize:13, color:B.taupe, marginBottom:20 },
   trust:    { display:"flex", flexDirection:"column", gap:8, marginBottom:4 },
-  trustItem:{ fontSize:14, color:"rgba(255,255,255,0.82)", fontWeight:500 },
+  trustItem:{ fontSize:14, color:B.text, fontWeight:500 },
   quotes:   { padding:"0 20px", display:"flex", flexDirection:"column", gap:12 },
-  qCard:    { background:"rgba(255,255,255,0.09)", border:"1px solid rgba(255,255,255,0.14)", borderRadius:16, padding:"18px 20px" },
-  stars:    { color:"#FCD34D", fontSize:13, marginBottom:8, letterSpacing:2 },
-  qText:    { fontSize:14, color:"rgba(255,255,255,0.9)", lineHeight:1.65, marginBottom:10, fontStyle:"italic" },
-  qMeta:    { fontSize:12, color:"rgba(255,255,255,0.5)", fontWeight:600 },
-  dis:      { fontSize:11, color:"rgba(255,255,255,0.35)", textAlign:"center", padding:"18px 24px 0", lineHeight:1.6 },
+  qCard:    { background:B.white, border:`1px solid ${B.border}`, borderRadius:16, padding:"18px 20px", boxShadow:"0 2px 12px rgba(0,0,0,0.04)" },
+  stars:    { color:B.gold, fontSize:13, marginBottom:8, letterSpacing:2 },
+  qText:    { fontSize:14, color:B.text, lineHeight:1.65, marginBottom:10, fontStyle:"italic", fontFamily:B.ff },
+  qMeta:    { fontSize:11, color:B.muted, fontWeight:600, fontFamily:B.fc, letterSpacing:"0.06em" },
+  dis:      { fontSize:11, color:B.muted, textAlign:"center", padding:"18px 24px 0", lineHeight:1.6 },
 };
 
 const q = {
@@ -814,34 +1014,34 @@ const q = {
   topBar:       { display:"flex", justifyContent:"space-between", alignItems:"center", padding:"20px 22px 12px" },
   pill:         { background:B.white, border:`1px solid ${B.border}`, borderRadius:100, padding:"7px 14px", fontSize:13, fontWeight:700, color:B.muted },
   track:        { height:4, background:B.border, overflow:"hidden" },
-  fill:         { height:"100%", background:`linear-gradient(90deg,${B.forest},${B.forestM})`, transition:"width 0.5s ease" },
+  fill:         { height:"100%", background:"linear-gradient(90deg,#B8874F,#D4A373,#E6C08A)", transition:"width 0.5s ease" },
   card:         { flex:1, padding:"16px 22px 40px" },
   emoji:        { fontSize:44, marginBottom:14, display:"block" },
   question:     { fontFamily:B.ff, fontSize:"clamp(20px,5vw,26px)", fontWeight:700, color:B.navy, lineHeight:1.3, marginBottom:12 },
   sub:          { fontSize:14, color:B.sub, lineHeight:1.65, marginBottom:22 },
   textWrap:     { display:"flex", flexDirection:"column", gap:12 },
   input:        { width:"100%", border:`2px solid ${B.border}`, borderRadius:14, padding:"17px 18px", fontSize:17, color:B.text, background:B.white, transition:"border-color 0.2s, box-shadow 0.2s" },
-  nextBtn:      { background:B.forest, color:"#fff", border:"none", borderRadius:14, padding:"18px 24px", fontSize:17, fontWeight:700, boxShadow:`0 4px 20px rgba(11,77,55,0.22)` },
+  nextBtn:      { background:"linear-gradient(135deg,#B8874F,#D4A373,#E6C08A)", color:B.plum, border:"none", borderRadius:14, padding:"18px 24px", fontSize:17, fontWeight:700, boxShadow:"0 4px 20px rgba(184,135,79,0.35)" },
   choices:      { display:"flex", flexDirection:"column", gap:10 },
   choice:       { display:"flex", alignItems:"center", gap:14, padding:"16px 18px", background:B.white, border:`2px solid ${B.border}`, borderRadius:16, boxShadow:"0 1px 6px rgba(0,0,0,0.04)" },
   check:        { width:26, height:26, borderRadius:"50%", color:"#fff", fontSize:13, fontWeight:700, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, animation:"up 0.2s ease" },
-  mythOverlay:  { position:"fixed", inset:0, background:"rgba(11,77,55,0.88)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:999, padding:"24px", backdropFilter:"blur(4px)" },
+  mythOverlay:  { position:"fixed", inset:0, background:"rgba(58,18,37,0.93)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:999, padding:"24px", backdropFilter:"blur(4px)" },
   mythCard:     { background:B.white, borderRadius:22, padding:"32px 26px", width:"100%", maxWidth:440, animation:"mythIn 0.35s cubic-bezier(0.34,1.2,0.64,1)" },
   mythHead:     { display:"flex", alignItems:"center", gap:10, marginBottom:16 },
   mythIcon:     { fontSize:24 },
-  mythLabel2:   { fontSize:13, fontWeight:700, color:B.forest, textTransform:"uppercase", letterSpacing:"0.08em" },
+  mythLabel2:   { fontSize:10, fontWeight:600, color:B.goldM, textTransform:"uppercase", letterSpacing:"0.14em", fontFamily:B.fc },
   mythMythTxt:  { fontSize:15, color:B.muted, lineHeight:1.7, marginBottom:14, paddingBottom:14, borderBottom:`1px solid ${B.border}` },
   mythTruth:    { fontSize:16, color:B.text, lineHeight:1.75, marginBottom:18 },
   mythCont:     { fontSize:13, color:B.muted, textAlign:"center" },
 };
 
 const calc = {
-  root:     { minHeight:"100vh", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"24px", background:`linear-gradient(160deg,${B.cream},${B.warm})` },
+  root:     { minHeight:"100vh", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"24px", background:`linear-gradient(160deg,${B.creamL},${B.cream})` },
   card:     { background:B.white, borderRadius:24, padding:"40px 28px", width:"100%", maxWidth:400, boxShadow:"0 20px 60px rgba(11,77,55,0.1)", border:`1px solid ${B.border}`, textAlign:"center", marginTop:24, animation:"up 0.4s ease" },
   dogName:  { fontFamily:B.ff, fontSize:28, fontWeight:700, color:B.navy, lineHeight:1 },
   subHead:  { fontSize:14, color:B.muted, marginTop:6, marginBottom:28, letterSpacing:"0.04em", textTransform:"uppercase" },
   ringWrap: { position:"relative", width:120, height:120, margin:"0 auto 28px" },
-  pct:      { position:"absolute", inset:0, display:"flex", alignItems:"center", justifyContent:"center", fontFamily:B.ff, fontSize:26, fontWeight:700, color:B.forest },
+  pct:      { position:"absolute", inset:0, display:"flex", alignItems:"center", justifyContent:"center", fontFamily:B.ff, fontSize:26, fontWeight:700, color:B.plum },
   stepList: { display:"flex", flexDirection:"column", gap:12, marginBottom:24, textAlign:"left" },
   stepItem: { display:"flex", alignItems:"center", gap:10, transition:"opacity 0.4s ease" },
   stepDot:  { width:8, height:8, borderRadius:"50%", flexShrink:0, transition:"background 0.3s ease" },
@@ -849,13 +1049,13 @@ const calc = {
 };
 
 const g = {
-  root:       { background:`linear-gradient(160deg,${B.cream},${B.warm})`, minHeight:"100vh", padding:"24px 20px 48px" },
+  root:       { background:B.plumGrad, minHeight:"100vh", padding:"24px 20px 48px" },
   preview:    { background:B.white, borderRadius:20, padding:"22px 20px", marginBottom:16, boxShadow:"0 4px 24px rgba(0,0,0,0.06)", border:`1px solid ${B.border}` },
   previewHead:{ display:"flex", alignItems:"center", gap:14, marginBottom:20 },
   previewAvatar:{ width:48, height:48, borderRadius:"50%", color:"#fff", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:B.ff, fontSize:20, fontWeight:700, flexShrink:0 },
   previewName:{ fontFamily:B.ff, fontSize:18, fontWeight:700, color:B.navy },
   previewSub: { fontSize:13, color:B.muted, marginTop:2 },
-  previewCheck:{ marginLeft:"auto", width:32, height:32, borderRadius:"50%", background:B.forestL, color:B.forest, display:"flex", alignItems:"center", justifyContent:"center", fontSize:16, fontWeight:700, flexShrink:0 },
+  previewCheck:{ marginLeft:"auto", width:32, height:32, borderRadius:"50%", background:"#FBF3E3", color:B.plum, display:"flex", alignItems:"center", justifyContent:"center", fontSize:16, fontWeight:700, flexShrink:0 },
   blurWrap:   { position:"relative", borderRadius:14, overflow:"hidden", marginBottom:16 },
   blurInner:  { background:B.forestL, padding:"20px", display:"flex", flexDirection:"column", gap:12 },
   blurItem:   { display:"flex", alignItems:"center", gap:10 },
@@ -877,9 +1077,9 @@ const g = {
 
 const r = {
   root:        { background:B.cream, minHeight:"100vh" },
-  header:      { background:`linear-gradient(155deg,${B.forest},${B.forestM})`, padding:"20px 22px 28px" },
+  header:      { background:B.plum, padding:"18px 20px 22px" },
   headerNav:   { display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:22 },
-  hBadge:      { background:"rgba(255,255,255,0.15)", border:"1px solid rgba(255,255,255,0.2)", borderRadius:100, padding:"6px 14px", fontSize:12, fontWeight:600, color:"rgba(255,255,255,0.9)" },
+  hBadge:      { background:"rgba(184,135,79,0.15)", border:"1px solid rgba(212,163,115,0.35)", borderRadius:100, padding:"6px 16px", fontSize:10, fontWeight:600, color:"#D4A373", fontFamily:B.fc, letterSpacing:"0.1em" },
   profileCard: { display:"flex", alignItems:"center", gap:16 },
   profileAvatar:{ width:60, height:60, borderRadius:"50%", background:"rgba(255,255,255,0.2)", color:"#fff", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:B.ff, fontSize:26, fontWeight:700, flexShrink:0 },
   profileName: { fontFamily:B.ff, fontSize:24, fontWeight:700, color:"#fff", marginBottom:4 },
@@ -900,15 +1100,15 @@ const r = {
   emailTitle:  { fontFamily:B.ff, fontSize:18, fontWeight:700, color:"#fff", marginBottom:12 },
   emailItem:   { display:"flex", gap:10, alignItems:"flex-start", marginBottom:10 },
   step:        { display:"flex", gap:14, alignItems:"flex-start", marginBottom:18 },
-  stepN:       { width:30, height:30, borderRadius:"50%", background:B.forestL, color:B.forest, display:"flex", alignItems:"center", justifyContent:"center", fontSize:14, fontWeight:700, flexShrink:0, marginTop:2 },
+  stepN:       { width:30, height:30, borderRadius:"50%", background:"#FBF3E3", color:B.plum, display:"flex", alignItems:"center", justifyContent:"center", fontSize:14, fontWeight:700, flexShrink:0, marginTop:2 },
   stepTitle:   { fontSize:15, fontWeight:700, color:B.navy, marginBottom:5 },
   stepBody:    { fontSize:13, color:B.sub, lineHeight:1.65 },
   pawCard:     { background:B.white, borderRadius:20, padding:"20px 20px", border:`1px solid ${B.border}`, boxShadow:"0 2px 16px rgba(0,0,0,0.05)", display:"flex", alignItems:"center", gap:14, flexWrap:"wrap" },
   pawIcon:     { fontSize:30, flexShrink:0 },
   pawTitle:    { fontFamily:B.ff, fontSize:16, fontWeight:700, color:B.navy, marginBottom:4 },
   pawSub:      { fontSize:13, color:B.sub, lineHeight:1.5 },
-  pawBtn:      { background:B.forest, color:"#fff", border:"none", borderRadius:12, padding:"12px 20px", fontSize:14, fontWeight:700, flexShrink:0 },
-  shareBtn:    { width:"100%", background:B.white, color:B.forest, border:`2px solid ${B.forest}`, borderRadius:16, padding:"15px 24px", fontSize:15, fontWeight:700, boxShadow:"0 2px 10px rgba(11,77,55,0.08)" },
+  pawBtn:      { background:"linear-gradient(135deg,#B8874F,#D4A373)", color:B.plum, border:"none", borderRadius:12, padding:"12px 20px", fontSize:14, fontWeight:700, flexShrink:0, fontFamily:B.ff },
+  shareBtn:    { width:"100%", background:B.white, color:B.plum, border:"2px solid #B8874F", borderRadius:16, padding:"15px 24px", fontSize:15, fontWeight:700, boxShadow:"0 2px 10px rgba(11,77,55,0.08)" },
   dis:         { fontSize:11, color:B.muted, lineHeight:1.7, padding:"14px 16px", background:B.white, borderRadius:14, border:`1px solid ${B.border}` },
   footer:      { textAlign:"center", paddingTop:8 },
 };
