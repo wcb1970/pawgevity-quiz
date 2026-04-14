@@ -317,9 +317,10 @@ function Landing({ onStart }) {
       <div style={l.navStrip}>
         <div style={l.goldLine}/>
         <nav style={l.nav}>
-        <Logo light/>
-        <div style={l.navPill}>Free — only takes 90 seconds</div>
-      </nav>
+          <Logo light/>
+          <div style={l.navPill}>Free — only takes 90 seconds</div>
+        </nav>
+      </div>
 
       <div style={{...l.hero, opacity:v?1:0, transform:v?"none":"translateY(24px)", transition:"all 0.7s cubic-bezier(0.34,1.1,0.64,1)"}}>
         <div style={l.badge}>
