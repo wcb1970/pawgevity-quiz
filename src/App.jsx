@@ -67,8 +67,8 @@ const STEPS = [
   // Step 2 — Age (profile + determines pillar focus)
   { type:"choice", id:"age",
     q: (d)=>`How old is ${d.name}?`,
-    sub:"Age is one of the strongest indicators of which wellness areas need the most support.",
-    emoji:"📅",
+    sub:"Age is one of the most useful pieces of context when thinking about a dog's wellness picture.",
+    emoji:"🐾",
     choices:[
       { label:"Under 5 years",  icon:"🌱", value:"young"  },
       { label:"5 – 6 years",   icon:"🌿", value:"mid"    },
@@ -81,7 +81,7 @@ const STEPS = [
   // Step 3 — Myth-busting health concern (Scratch pattern — surprising + educational)
   { type:"choice", id:"concern",
     q: (d)=>`Where are you most worried about ${d.name} right now?`,
-    sub:"Most owners focus on one obvious thing — but the data shows the real issue is usually something else.",
+    sub:"There are no wrong answers — just share what feels most present for you right now.",
     emoji:"🔍",
     myth:true,
     choices:[
@@ -111,7 +111,7 @@ const STEPS = [
   // Step 5 — One observable signal (specific, reassures dog owner they know their dog)
   { type:"choice", id:"signal",
     q: (d)=>`In the past month, has ${d.name} shown any of these?`,
-    sub:"Tick the one that feels most familiar — even if it seems minor.",
+    sub:"Choose the one that feels most relevant. Small, gradual changes are often the most worth noticing.",
     emoji:"👀",
     choices:[
       { label:"Slower to get up after resting",              icon:"🐢", value:"mobility"   },
@@ -126,7 +126,7 @@ const STEPS = [
   // Step 6 — Vet visit (segmentation gold + emotional resonance)
   { type:"choice", id:"vet",
     q: (d)=>`When did ${d.name} last see a vet?`,
-    sub:"This helps us tailor whether your report should flag anything for your next appointment.",
+    sub:"This gives us a little more context about where things stand with your dog's care right now.",
     emoji:"🏥",
     choices:[
       { label:"Within the last 3 months",   icon:"✅", value:"recent"  },
@@ -450,9 +450,20 @@ function QuizStep({ step, data, onAnswer, onNext, stepIdx, total }) {
 
   return (
     <div style={q.root}>
-      {/* Top bar */}
+      {/* Top bar — compact logo, no subtitle */}
       <div style={q.topBar}>
-        <Logo size={28}/>
+        <div style={{display:"flex",alignItems:"center",gap:8}}>
+          <div style={{width:30,height:30,borderRadius:8,background:"#F0E8CC",display:"flex",alignItems:"center",justifyContent:"center",border:"1px solid #DDD0A0",flexShrink:0}}>
+            <svg width="18" height="18" viewBox="0 0 32 32" fill="none">
+              <ellipse cx="16" cy="22" rx="8" ry="6" fill="#685820"/>
+              <ellipse cx="7" cy="13" rx="3.2" ry="4" fill="#685820" transform="rotate(-20 7 13)"/>
+              <ellipse cx="13" cy="9" rx="3.2" ry="4" fill="#685820" transform="rotate(-5 13 9)"/>
+              <ellipse cx="19" cy="9" rx="3.2" ry="4" fill="#685820" transform="rotate(5 19 9)"/>
+              <ellipse cx="25" cy="13" rx="3.2" ry="4" fill="#685820" transform="rotate(20 25 13)"/>
+            </svg>
+          </div>
+          <span style={{fontFamily:B.ff,fontWeight:700,fontSize:16,color:B.plum,letterSpacing:"-0.01em"}}>pawgevity</span>
+        </div>
         <div style={q.pill}>{remaining} question{remaining!==1?"s":""} left</div>
       </div>
 
@@ -475,6 +486,9 @@ function QuizStep({ step, data, onAnswer, onNext, stepIdx, total }) {
             <button style={{...q.nextBtn, opacity:val.trim()?1:0.4}} onClick={submitText} disabled={!val.trim()}>
               Continue →
             </button>
+            <p style={{fontSize:13,color:B.muted,textAlign:"center",marginTop:8,lineHeight:1.6}}>
+              This takes about 90 seconds — and everything is specific to your dog.
+            </p>
           </div>
         )}
 
@@ -491,10 +505,10 @@ function QuizStep({ step, data, onAnswer, onNext, stepIdx, total }) {
                   transition:"all 0.22s cubic-bezier(0.34,1.2,0.64,1)",
                 }} onClick={()=>selectChoice(c,i)} disabled={selected!==null}>
                   <span style={{fontSize:22,flexShrink:0}}>{c.icon}</span>
-                  <span style={{fontSize:15,fontWeight:isSel?700:500,color:isSel?B.forest:B.text,flex:1,textAlign:"left",lineHeight:1.4}}>
+                  <span style={{fontSize:15,fontWeight:isSel?700:500,color:isSel?B.plum:B.text,flex:1,textAlign:"left",lineHeight:1.4}}>
                     {c.label}
                   </span>
-                  {isSel && <div style={{...q.check,background:B.forest}}>✓</div>}
+                  {isSel && <div style={{...q.check,background:"linear-gradient(135deg,#B8874F,#E6C08A)",color:B.plum}}>✓</div>}
                 </button>
               );
             })}
@@ -514,9 +528,9 @@ function QuizStep({ step, data, onAnswer, onNext, stepIdx, total }) {
             <p style={q.mythTruth}><strong>What&apos;s actually happening:</strong> {myth.truth}</p>
             <button
               style={{
-                width:"100%", background:"#0B4D37", color:"#fff", border:"none",
+                width:"100%", background:"linear-gradient(135deg,#B8874F,#D4A373,#E6C08A)", color:B.plum, border:"none",
                 borderRadius:14, padding:"16px 24px", fontSize:16, fontWeight:700,
-                cursor:"pointer", fontFamily:"'Outfit',sans-serif", marginTop:4
+                cursor:"pointer", fontFamily:B.ff, marginTop:4
               }}
               onClick={dismissMyth}
             >
@@ -574,8 +588,8 @@ function Calculating({ data, onDone }) {
         <div style={calc.stepList}>
           {steps2.map((s,i)=>(
             <div key={i} style={{...calc.stepItem, opacity:step>=i?1:0.2, transition:`opacity 0.4s ease ${i*0.1}s`}}>
-              <span style={{...calc.stepDot, background:step>=i?B.forest:B.border}}/>
-              <span style={{fontSize:14, color:step>=i?B.text:B.muted, fontWeight:step===i?600:400}}>{s}</span>
+              <span style={{...calc.stepDot, background:step>=i?"#D4A373":B.border}}/>
+              <span style={{fontSize:14, color:step>=i?B.navy:B.muted, fontWeight:step===i?600:400}}>{s}</span>
             </div>
           ))}
         </div>
@@ -962,7 +976,7 @@ export default function App() {
         *{box-sizing:border-box;margin:0;padding:0;}
         button{font-family:'Outfit',sans-serif;cursor:pointer;}
         input{font-family:'Outfit',sans-serif;}
-        input:focus{outline:none;border-color:#0B4D37!important;box-shadow:0 0 0 3px rgba(11,77,55,0.1);}
+        input:focus{outline:none;border-color:#B8874F!important;box-shadow:0 0 0 3px rgba(184,135,79,0.15);}
         @keyframes spin{to{transform:rotate(360deg);}}
         @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
         @keyframes mythIn{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}
@@ -1024,9 +1038,9 @@ const l = {
 
 const q = {
   root:         { background:B.cream, minHeight:"100vh", display:"flex", flexDirection:"column" },
-  topBar:       { display:"flex", justifyContent:"space-between", alignItems:"center", padding:"20px 22px 12px" },
-  pill:         { background:B.white, border:`1px solid ${B.border}`, borderRadius:100, padding:"7px 14px", fontSize:13, fontWeight:700, color:B.muted },
-  track:        { height:4, background:B.border, overflow:"hidden" },
+  topBar:       { display:"flex", justifyContent:"space-between", alignItems:"center", padding:"16px 20px 10px" },
+  pill:         { background:"rgba(184,135,79,0.08)", border:"1.5px solid rgba(184,135,79,0.4)", borderRadius:100, padding:"6px 14px", fontSize:12, fontWeight:700, color:B.plum, fontFamily:B.fc, letterSpacing:"0.06em" },
+  track:        { height:5, background:B.border, overflow:"hidden", flexShrink:0 },
   fill:         { height:"100%", background:"linear-gradient(90deg,#B8874F,#D4A373,#E6C08A)", transition:"width 0.5s ease" },
   card:         { flex:1, padding:"16px 22px 40px" },
   emoji:        { fontSize:44, marginBottom:14, display:"block" },
