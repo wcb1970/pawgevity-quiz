@@ -317,15 +317,27 @@ function Landing({ onStart }) {
       <div style={l.navStrip}>
         <div style={l.goldLine}/>
         <nav style={l.nav}>
-          <Logo light/>
-          <div style={l.navPill}>Free — only takes 90 seconds</div>
+          {/* Compact nav logo — no subtitle to prevent wrapping */}
+          <div style={{display:"flex",alignItems:"center",gap:9}}>
+            <div style={{width:34,height:34,borderRadius:9,background:"rgba(255,255,255,0.12)",display:"flex",alignItems:"center",justifyContent:"center",border:"1px solid rgba(255,255,255,0.2)",flexShrink:0}}>
+              <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+                <ellipse cx="16" cy="22" rx="8" ry="6" fill="#E6C08A"/>
+                <ellipse cx="7" cy="13" rx="3.2" ry="4" fill="#E6C08A" transform="rotate(-20 7 13)"/>
+                <ellipse cx="13" cy="9" rx="3.2" ry="4" fill="#E6C08A" transform="rotate(-5 13 9)"/>
+                <ellipse cx="19" cy="9" rx="3.2" ry="4" fill="#E6C08A" transform="rotate(5 19 9)"/>
+                <ellipse cx="25" cy="13" rx="3.2" ry="4" fill="#E6C08A" transform="rotate(20 25 13)"/>
+              </svg>
+            </div>
+            <div style={{fontFamily:B.ff,fontWeight:700,fontSize:18,color:"#E6C08A",letterSpacing:"-0.01em",lineHeight:1}}>pawgevity</div>
+          </div>
+          <div style={l.navPill}>Free · 90 sec</div>
         </nav>
       </div>
 
       <div style={{...l.hero, opacity:v?1:0, transform:v?"none":"translateY(24px)", transition:"all 0.7s cubic-bezier(0.34,1.1,0.64,1)"}}>
         <div style={l.badge}>
           <span style={l.dot}/>
-          <span>You're already paying attention — that matters.</span>
+          <span>You&apos;re already paying attention — that matters.</span>
         </div>
 
         <h1 style={l.h1}>
@@ -334,7 +346,7 @@ function Landing({ onStart }) {
           <span style={{display:"block",fontFamily:B.ff,fontStyle:"normal",fontWeight:400,fontSize:"clamp(16px,4vw,20px)",color:B.taupe,marginTop:6,lineHeight:1.3}}>— and see what may be worth a closer look.</span>
         </h1>
 
-        <p style={l.tagline}>“They gave you their best years. Now it’s your turn.”</p>
+        <p style={l.tagline}>{"\u201cThey gave you their best years. Now it\u2019s your turn.\u201d"}</p>
 
         <p style={l.p}>
           Answer 6 quick questions. We'll highlight which of the 5 key wellness areas may need more attention — based on your dog's age, breed, and the signals you're already noticing.
@@ -384,7 +396,7 @@ function Landing({ onStart }) {
           </div>
         ))}
       </div>
-      <div style={l.dis}>This profile is for general wellness awareness only. It is not veterinary advice and should not replace professional care. Always consult your veterinarian about your dog's health. † These statements have not been evaluated by the Food and Drug Administration.</div>
+      <div style={l.dis}>This profile is for general wellness awareness only. It is not veterinary advice and should not replace professional care. Always consult your veterinarian about your dog&apos;s health. † These statements have not been evaluated by the Food and Drug Administration.</div>
       <div style={{textAlign:"center",paddingTop:12,paddingBottom:4}}>
         <a href="/privacy" style={{fontSize:11,color:B.muted,textDecoration:"none",fontFamily:B.fc,letterSpacing:"0.06em"}}>Privacy Policy</a>
         <span style={{color:B.border,margin:"0 8px"}}>·</span>
@@ -499,7 +511,7 @@ function QuizStep({ step, data, onAnswer, onNext, stepIdx, total }) {
               <span style={q.mythLabel2}>What the data actually shows</span>
             </div>
             <p style={q.mythMythTxt}><strong>What most owners think:</strong> {myth.myth}</p>
-            <p style={q.mythTruth}><strong>What's actually happening:</strong> {myth.truth}</p>
+            <p style={q.mythTruth}><strong>What&apos;s actually happening:</strong> {myth.truth}</p>
             <button
               style={{
                 width:"100%", background:"#0B4D37", color:"#fff", border:"none",
@@ -713,7 +725,7 @@ function Gate({ data, onCapture }) {
       {/* Form */}
       <div style={g.form}>
         <h2 style={g.formH}>Where should we send {data.name}'s profile?</h2>
-        <p style={g.formP}>Enter your email and we'll share the full overview right away — including some thoughtful context for each area and a practical starting point based on what you've told us.</p>
+        <p style={g.formP}>Enter your email and we&apos;ll share the full overview right away — including some thoughtful context for each area and a practical starting point based on what you&apos;ve told us.</p>
 
         <label style={g.label}>Your email address</label>
         <input style={{...g.input,...(err?{borderColor:B.coral}:{})}} type="email"
@@ -732,7 +744,7 @@ function Gate({ data, onCapture }) {
           By continuing you agree to our{" "}
           <a href="/privacy" style={{color:B.taupe,textDecoration:"underline",textDecorationColor:B.border}}>Privacy Policy</a>
         </p>
-        <p style={g.dis}>† This overview is for general wellness awareness only. It is not a diagnosis or veterinary advice. Always consult your vet for guidance on your dog's health. Not evaluated by the FDA. Individual context varies.</p>
+        <p style={g.dis}>† This overview is for general wellness awareness only. It is not a diagnosis or veterinary advice. Always consult your vet for guidance on your dog&apos;s health. Not evaluated by the FDA. Individual context varies.</p>
       </div>
     </div>
   );
@@ -865,7 +877,7 @@ function Results({ data, email }) {
 
         {/* What's in your email */}
         <div style={r.emailCard}>
-          <div style={r.emailTitle}>📧 What we're sending to your inbox</div>
+          <div style={r.emailTitle}>📧 What we&apos;re sending to your inbox</div>
           <p style={{fontSize:14,color:"rgba(255,255,255,0.75)",marginBottom:16,lineHeight:1.6}}>
             We're sending a more detailed overview to <strong style={{color:"#fff"}}>{email}</strong> with things worth exploring further:
           </p>
@@ -981,7 +993,7 @@ const l = {
   // Gold divider line at top
   goldLine: { height:3, background:"linear-gradient(90deg,#B8874F,#D4A373,#E6C08A,#D4A373,#B8874F)" },
   navStrip: { background:B.plum, padding:"0" },
-  nav:      { display:"flex", justifyContent:"space-between", alignItems:"center", padding:"16px 22px" },
+  nav:      { display:"flex", justifyContent:"space-between", alignItems:"center", padding:"12px 18px" },
   navPill:  { background:"rgba(184,135,79,0.15)", border:"1px solid rgba(212,163,115,0.35)", borderRadius:100, padding:"6px 16px", fontSize:11, fontWeight:600, color:"#D4A373", fontFamily:B.fc, letterSpacing:"0.1em" },
   hero:     { padding:"16px 24px 32px" },
   badge:    { display:"inline-flex", alignItems:"center", gap:10, background:"linear-gradient(135deg,#B8874F,#D4A373,#E6C08A)", border:"none", borderRadius:100, padding:"11px 20px", fontSize:13, fontWeight:700, color:"#3D1225", marginBottom:22, fontFamily:B.ff, boxShadow:"0 4px 16px rgba(184,135,79,0.3)", letterSpacing:"-0.01em" },
