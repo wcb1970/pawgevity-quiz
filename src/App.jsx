@@ -349,7 +349,7 @@ function Landing({ onStart }) {
         <p style={l.tagline}>{"\u201cThey gave you their best years. Now it\u2019s your turn.\u201d"}</p>
 
         <p style={l.p}>
-          Answer 6 quick questions. We'll highlight which of the 5 key wellness areas may need more attention — based on your dog's age, breed, and the signals you're already noticing.
+          Answer 7 quick questions. We'll highlight which of the 5 key wellness areas may need more attention — based on your dog's age, breed, and the signals you're already noticing.
         </p>
 
         {/* The Scratch-style myth hook */}
@@ -361,7 +361,7 @@ function Landing({ onStart }) {
         </div>
 
         <div style={l.stats}>
-          {[{n:"6",l:"Questions"},{n:"~90 sec",l:"To complete"},{n:"5",l:"Wellness areas"}].map((s,i)=>(
+          {[{n:"7",l:"Questions"},{n:"~90 sec",l:"To complete"},{n:"5",l:"Wellness areas"}].map((s,i)=>(
             <div key={i} style={l.stat}>
               <div style={l.statN}>{s.n}</div>
               <div style={l.statL}>{s.l}</div>
@@ -700,7 +700,7 @@ function Gate({ data, onCapture }) {
           <div style={{...g.previewAvatar, background:pc.color}}>{data.name?.[0]?.toUpperCase()}</div>
           <div>
             <div style={g.previewName}>{data.name}'s Wellness Profile</div>
-            <div style={g.previewSub}>6 questions · 5 areas reviewed · Profile ready</div>
+            <div style={g.previewSub}>7 questions · 5 areas reviewed · Profile ready</div>
           </div>
           <div style={g.previewCheck}>✓</div>
         </div>
@@ -1088,7 +1088,7 @@ const g = {
   blurItem:   { display:"flex", alignItems:"center", gap:10 },
   blurDot:    { width:10, height:10, borderRadius:"50%", background:B.border, flexShrink:0 },
   blurOverlay:{ position:"absolute", inset:0, backdropFilter:"blur(10px)", background:"rgba(250,247,241,0.75)" },
-  lockBadge:  { position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", background:B.white, border:`2px solid ${B.forest}`, borderRadius:100, padding:"10px 20px", fontSize:14, fontWeight:700, color:B.forest, whiteSpace:"nowrap", boxShadow:"0 4px 20px rgba(11,77,55,0.15)", display:"flex", alignItems:"center", gap:8 },
+  lockBadge:  { position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", background:B.white, border:"2px solid #B8874F", borderRadius:100, padding:"10px 20px", fontSize:14, fontWeight:700, color:B.plum, whiteSpace:"nowrap", boxShadow:"0 4px 20px rgba(11,77,55,0.15)", display:"flex", alignItems:"center", gap:8 },
   tease:      { display:"flex", alignItems:"flex-start", gap:12, padding:"14px 16px", borderRadius:14, border:"1.5px solid" },
   form:       { background:B.white, borderRadius:20, padding:"26px 22px", boxShadow:"0 4px 24px rgba(0,0,0,0.06)", border:`1px solid ${B.border}` },
   formH:      { fontFamily:B.ff, fontSize:22, fontWeight:700, color:B.navy, marginBottom:10 },
@@ -1096,8 +1096,8 @@ const g = {
   label:      { display:"block", fontSize:14, fontWeight:700, color:B.text, marginBottom:10 },
   input:      { width:"100%", border:`2px solid ${B.border}`, borderRadius:14, padding:"17px 18px", fontSize:16, color:B.text, background:B.cream, marginBottom:8, transition:"all 0.2s" },
   err:        { fontSize:14, color:B.coral, fontWeight:600, marginBottom:10 },
-  btn:        { width:"100%", background:B.forest, color:"#fff", border:"none", borderRadius:14, padding:"18px 24px", fontSize:17, fontWeight:700, display:"flex", alignItems:"center", justifyContent:"center", gap:10, marginBottom:12, boxShadow:"0 4px 20px rgba(11,77,55,0.22)", transition:"all 0.2s" },
-  spin:       { width:20, height:20, border:"3px solid rgba(255,255,255,0.3)", borderTopColor:"#fff", borderRadius:"50%", animation:"spin 0.7s linear infinite" },
+  btn:        { width:"100%", background:"linear-gradient(135deg,#B8874F,#D4A373,#E6C08A)", color:B.plum, border:"none", borderRadius:14, padding:"18px 24px", fontSize:17, fontWeight:700, display:"flex", alignItems:"center", justifyContent:"center", gap:10, marginBottom:12, boxShadow:"0 4px 20px rgba(184,135,79,0.35)", transition:"all 0.2s", fontFamily:B.ff },
+  spin:       { width:20, height:20, border:"3px solid rgba(61,18,40,0.25)", borderTopColor:B.plum, borderRadius:"50%", animation:"spin 0.7s linear infinite" },
   fine:       { textAlign:"center", fontSize:13, color:B.muted, marginBottom:10 },
   dis:        { fontSize:11, color:B.muted, textAlign:"center", lineHeight:1.65 },
 };
