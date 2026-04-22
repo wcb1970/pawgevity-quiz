@@ -1,19 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta name="theme-color" content="#0B4D37" />
-    <meta name="description" content="Build your dog's free personalized wellness profile — find out which of the 5 health areas need attention right now." />
-    <meta property="og:title" content="Pawgevity — Free Dog Wellness Profile" />
-    <meta property="og:description" content="6 questions. 90 seconds. Find out what's affecting your dog." />
-    <title>Pawgevity — Free Dog Wellness Profile</title>
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
-    <link rel="icon" href="%PUBLIC_URL%/apple-touch-icon.png" type="image/png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta name="theme-color" content="#5A1E36"/>
+<meta name="description" content="Build your dog's free personalized wellness profile — find out which of the 5 health areas need attention right now."/>
+<meta property="og:title" content="Pawgevity — Free Dog Wellness Profile"/>
+<meta property="og:description" content="7 questions. 90 seconds. Find out what's affecting your dog."/>
+<title>Pawgevity — Free Dog Wellness Profile</title>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="icon" href="/apple-touch-icon.png" type="image/png"/>
+<link rel="manifest" href="/manifest.json"/>
+<!-- Preconnect to Google Fonts BEFORE loading them -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<!-- Preload the JS bundle so it starts downloading immediately -->
+<link rel="preload" href="/static/js/main.40a791d7.js" as="script"/>
+<style>
+  /* Instant loading state — visible in under 100ms */
+  body { margin: 0; background: #FAF4EE; }
+  #loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: #FAF4EE;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  #loader .paw {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #F0E8CC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #DDD0A0;
+    margin-bottom: 20px;
+  }
+  #loader .paw svg { width: 28px; height: 28px; }
+  #loader .brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: #5A1E36;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  #loader .sub {
+    font-size: 14px;
+    color: #836953;
+    margin-bottom: 24px;
+  }
+  #loader .bar-track {
+    width: 120px;
+    height: 4px;
+    background: #E8D5C4;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  #loader .bar-fill {
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(90deg, #B8874F, #D4A373, #E6C08A);
+    border-radius: 4px;
+    animation: load 1.5s ease-in-out infinite;
+  }
+  @keyframes load {
+    0% { width: 10%; transform: translateX(0); }
+    50% { width: 60%; }
+    100% { width: 10%; transform: translateX(360px); }
+  }
+  /* Hide loader once React mounts */
+  #root:not(:empty) + #loader,
+  #root:not(:empty) ~ #loader { display: none; }
+</style>
+<script defer="defer" src="/static/js/main.40a791d7.js"></script>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+<!-- Loading state shown instantly while JS downloads and React boots -->
+<div id="loader">
+  <div class="paw">
+    <svg viewBox="0 0 32 32" fill="none">
+      <ellipse cx="16" cy="22" rx="8" ry="6" fill="#685820"/>
+      <ellipse cx="7" cy="13" rx="3.2" ry="4" fill="#685820" transform="rotate(-20 7 13)"/>
+      <ellipse cx="13" cy="9" rx="3.2" ry="4" fill="#685820" transform="rotate(-5 13 9)"/>
+      <ellipse cx="19" cy="9" rx="3.2" ry="4" fill="#685820" transform="rotate(5 19 9)"/>
+      <ellipse cx="25" cy="13" rx="3.2" ry="4" fill="#685820" transform="rotate(20 25 13)"/>
+    </svg>
+  </div>
+  <div class="brand">pawgevity</div>
+  <div class="sub">Loading your wellness quiz…</div>
+  <div class="bar-track"><div class="bar-fill"></div></div>
+</div>
+</body>
 </html>
