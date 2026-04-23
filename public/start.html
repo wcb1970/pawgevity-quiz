@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#5A1E36">
+<meta name="description" content="Free personalized wellness profile for your senior dog. 5 health areas reviewed based on age, breed, and concerns.">
+<meta property="og:title" content="Pawgevity — Free Dog Wellness Profile">
+<meta property="og:description" content="Find out which of the 5 key health areas needs attention right now.">
+<title>Pawgevity — Free Dog Wellness Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/apple-touch-icon.png" type="image/png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#FAF4EE;color:#2A0F1B;min-height:100vh;min-height:100dvh;overflow-x:hidden}
+.nav{background:#5A1E36;padding:14px 20px;display:flex;align-items:center}
+.nav-brand{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#E6C08A;display:flex;align-items:center;gap:9px}
+.nav-paw{width:30px;height:30px;border-radius:8px;background:#F0E8CC;display:flex;align-items:center;justify-content:center;border:1px solid #DDD0A0}
+.nav-paw svg{width:18px;height:18px}
+.gold-bar{height:3px;background:linear-gradient(90deg,#B8874F,#D4A373,#E6C08A,#D4A373,#B8874F)}
+.hero{padding:32px 22px 24px;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#B8874F,#D4A373,#E6C08A);border:none;border-radius:100px;padding:9px 18px;font-size:12px;font-weight:700;color:#3D1225;font-family:'Playfair Display',serif;box-shadow:0 4px 16px rgba(184,135,79,0.3);margin-bottom:18px}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:#3D1225;opacity:.35}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(26px,6.5vw,38px);font-weight:700;color:#5A1E36;line-height:1.15;margin-bottom:12px}
+.hero h1 em{display:block;font-style:italic;color:#B8874F}
+.hero-sub{font-size:15px;color:#3D1A28;line-height:1.7;max-width:400px;margin:0 auto}
+.form-card{background:#fff;border:1.5px solid #E8D5C4;border-radius:20px;padding:28px 22px 30px;margin:20px 16px 24px;max-width:440px;margin-left:auto;margin-right:auto;box-shadow:0 8px 40px rgba(90,30,54,0.06)}
+.form-card h2{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:#5A1E36;text-align:center;margin-bottom:4px;line-height:1.25}
+.form-sub{font-size:13px;color:#836953;text-align:center;margin-bottom:20px;line-height:1.6}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#836953;margin-bottom:5px;font-family:'Cinzel',serif}
+.field input,.field select{width:100%;padding:13px 16px;border:1.5px solid #E8D5C4;border-radius:12px;font-size:16px;font-family:'Inter',sans-serif;color:#2A0F1B;background:#FAF4EE;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.field input::placeholder{color:#A08070}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23836953' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;cursor:pointer;color:#A08070}
+.field select.selected{color:#2A0F1B}
+.field select option{color:#2A0F1B;background:#fff}
+.field select optgroup{font-weight:700;color:#5A1E36;font-style:normal}
+.field input:focus,.field select:focus{outline:none;border-color:#B8874F;box-shadow:0 0 0 3px rgba(184,135,79,0.15)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.submit-btn{display:block;width:100%;background:linear-gradient(135deg,#B8874F,#D4A373,#E6C08A);color:#5A1E36;border:none;border-radius:14px;padding:17px 24px;font-size:16px;font-weight:700;font-family:'Playfair Display',serif;cursor:pointer;text-align:center;box-shadow:0 6px 24px rgba(184,135,79,0.35);transition:transform .15s,opacity .15s;margin-top:6px}
+.submit-btn:hover{transform:translateY(-2px)}
+.submit-btn:active{transform:translateY(0)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.error-msg{color:#C0391A;font-size:13px;text-align:center;margin-top:10px;display:none}
+.fine-print{text-align:center;font-size:12px;color:#A08070;margin-top:12px;line-height:1.6}
+.fine-print a{color:#836953;text-decoration:underline;text-decoration-color:#E8D5C4}
+.benefits{margin:0 16px 24px;max-width:440px;margin-left:auto;margin-right:auto}
+.benefits h3{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#B8874F;margin-bottom:14px;text-align:center}
+.benefit-row{display:flex;align-items:flex-start;gap:12px;padding:9px 0}
+.benefit-icon{width:32px;height:32px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px}
+.benefit-icon.joint{background:#E8F4EF}
+.benefit-icon.coat{background:#FBF3E3}
+.benefit-icon.gut{background:#E5F6FA}
+.benefit-icon.brain{background:#F0EBFA}
+.benefit-icon.inflam{background:#FAEAE6}
+.benefit-text{font-size:14px;color:#3D1A28;line-height:1.5;font-weight:500}
+.trust-strip{background:#F6E7D8;border-top:1px solid #E8D5C4;border-bottom:1px solid #E8D5C4;padding:16px 22px;text-align:center;font-size:13px;color:#836953;line-height:1.6;margin-bottom:24px}
+.quiz-nudge{max-width:440px;margin:0 auto 24px;padding:0 16px}
+.quiz-nudge-card{background:#5A1E36;border-radius:16px;padding:22px 20px;text-align:center}
+.quiz-nudge-card p{font-size:14px;color:rgba(246,231,216,.75);line-height:1.6;margin-bottom:14px}
+.quiz-nudge-card p strong{color:#E6C08A}
+.quiz-link{display:inline-block;background:linear-gradient(135deg,#B8874F,#D4A373,#E6C08A);color:#5A1E36;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;font-family:'Playfair Display',serif;text-decoration:none;cursor:pointer;transition:opacity .15s}
+.quiz-link:hover{opacity:.88}
+.footer{background:#5A1E36;padding:16px 22px;text-align:center}
+.footer-brand{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:#E6C08A;margin-bottom:4px}
+.footer-sub{font-size:11px;color:rgba(246,231,216,.4)}
+.thank-you{display:none;text-align:center;padding:40px 22px 32px}
+.check-circle{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#B8874F,#D4A373,#E6C08A);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:30px;color:#5A1E36}
+.thank-you h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#5A1E36;margin-bottom:10px;line-height:1.2}
+.ty-sub{font-size:15px;color:#836953;line-height:1.7;max-width:380px;margin:0 auto 20px}
+.ty-email{background:#F6E7D8;border:1px solid #E8D5C4;border-radius:12px;padding:12px 18px;font-size:14px;font-weight:600;color:#5A1E36;display:inline-block;margin-bottom:24px}
+.ty-areas{max-width:340px;margin:0 auto 28px;text-align:left}
+.ty-area{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:14px;font-weight:500;color:#3D1A28}
+.ty-area-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ty-divider{height:1px;background:#E8D5C4;margin:24px 0}
+.ty-quiz-prompt{font-size:14px;color:#836953;margin-bottom:14px;line-height:1.6}
+.ty-quiz-btn{display:inline-block;background:#5A1E36;color:#F6E7D8;border:none;border-radius:12px;padding:15px 28px;font-size:15px;font-weight:600;font-family:'Playfair Display',serif;text-decoration:none;cursor:pointer;transition:opacity .15s}
+.ty-quiz-btn:hover{opacity:.85}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(90,30,54,.2);border-top-color:#5A1E36;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero,.form-card,.benefits,.quiz-nudge{animation:fadeUp .5s ease both}
+.form-card{animation-delay:.1s}
+.benefits{animation-delay:.15s}
+.quiz-nudge{animation-delay:.2s}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-brand">
+    <div class="nav-paw"><svg viewBox="0 0 32 32" fill="none"><ellipse cx="16" cy="22" rx="8" ry="6" fill="#685820"/><ellipse cx="7" cy="13" rx="3.2" ry="4" fill="#685820" transform="rotate(-20 7 13)"/><ellipse cx="13" cy="9" rx="3.2" ry="4" fill="#685820" transform="rotate(-5 13 9)"/><ellipse cx="19" cy="9" rx="3.2" ry="4" fill="#685820" transform="rotate(5 19 9)"/><ellipse cx="25" cy="13" rx="3.2" ry="4" fill="#685820" transform="rotate(20 25 13)"/></svg></div>
+    pawgevity
+  </div>
+</div>
+<div class="gold-bar"></div>
+
+<div id="main-content">
+
+  <div class="hero">
+    <div class="badge"><span class="badge-dot"></span> Free · 30 Seconds</div>
+    <h1>They gave you their best years.<em>Now it's your turn.</em></h1>
+    <p class="hero-sub">Tell us about your dog — their breed, age, and what concerns you most. We'll send a personalized wellness overview covering the 5 health areas that shift as dogs age.</p>
+  </div>
+
+  <div class="form-card" id="form-card">
+    <h2>Build your dog's wellness profile</h2>
+    <p class="form-sub">Takes about 30 seconds — your personalized overview arrives by email in minutes.</p>
+
+    <div class="field">
+      <label>Your dog's name</label>
+      <input type="text" id="dog-name" placeholder="e.g. Bella, Max, Rudy…" autocomplete="off">
+    </div>
+
+    <div class="field">
+      <label>Breed</label>
+      <select id="dog-breed" onchange="this.classList.add('selected')">
+        <option value="" disabled selected>Select your dog's breed</option>
+        <optgroup label="Retrievers &amp; Spaniels">
+          <option value="labrador">Labrador Retriever</option>
+          <option value="golden">Golden Retriever</option>
+          <option value="cocker">Cocker Spaniel</option>
+          <option value="springer">English Springer Spaniel</option>
+          <option value="cavalier">Cavalier King Charles Spaniel</option>
+        </optgroup>
+        <optgroup label="Shepherds &amp; Herding">
+          <option value="german_shepherd">German Shepherd</option>
+          <option value="australian_shepherd">Australian Shepherd</option>
+          <option value="border_collie">Border Collie</option>
+          <option value="corgi">Corgi (Pembroke / Cardigan)</option>
+          <option value="sheltie">Shetland Sheepdog</option>
+        </optgroup>
+        <optgroup label="Terriers">
+          <option value="yorkie">Yorkshire Terrier</option>
+          <option value="schnauzer">Miniature Schnauzer</option>
+          <option value="boston">Boston Terrier</option>
+          <option value="jack_russell">Jack Russell Terrier</option>
+          <option value="westie">West Highland White Terrier</option>
+        </optgroup>
+        <optgroup label="Bulldogs &amp; Bully Breeds">
+          <option value="french_bulldog">French Bulldog</option>
+          <option value="english_bulldog">English Bulldog</option>
+          <option value="pit_bull">Pit Bull / Am. Staffordshire</option>
+          <option value="boxer">Boxer</option>
+        </optgroup>
+        <optgroup label="Small Breeds">
+          <option value="chihuahua">Chihuahua</option>
+          <option value="shih_tzu">Shih Tzu</option>
+          <option value="pomeranian">Pomeranian</option>
+          <option value="maltese">Maltese</option>
+          <option value="dachshund">Dachshund</option>
+          <option value="havanese">Havanese</option>
+          <option value="bichon">Bichon Frise</option>
+          <option value="pug">Pug</option>
+          <option value="min_pinscher">Miniature Pinscher</option>
+          <option value="lhasa">Lhasa Apso</option>
+        </optgroup>
+        <optgroup label="Large &amp; Giant Breeds">
+          <option value="rottweiler">Rottweiler</option>
+          <option value="great_dane">Great Dane</option>
+          <option value="husky">Siberian Husky</option>
+          <option value="doberman">Doberman Pinscher</option>
+          <option value="bernese">Bernese Mountain Dog</option>
+          <option value="cane_corso">Cane Corso</option>
+          <option value="mastiff">Mastiff</option>
+          <option value="great_pyrenees">Great Pyrenees</option>
+          <option value="newfoundland">Newfoundland</option>
+          <option value="st_bernard">Saint Bernard</option>
+          <option value="akita">Akita</option>
+          <option value="malamute">Alaskan Malamute</option>
+          <option value="weimaraner">Weimaraner</option>
+          <option value="irish_setter">Irish Setter</option>
+          <option value="rhodesian">Rhodesian Ridgeback</option>
+        </optgroup>
+        <optgroup label="Poodles &amp; Doodles">
+          <option value="standard_poodle">Standard Poodle</option>
+          <option value="mini_poodle">Miniature / Toy Poodle</option>
+          <option value="goldendoodle">Goldendoodle</option>
+          <option value="labradoodle">Labradoodle</option>
+        </optgroup>
+        <optgroup label="Other">
+          <option value="beagle">Beagle</option>
+          <option value="dalmatian">Dalmatian</option>
+          <option value="vizsla">Vizsla</option>
+          <option value="basenji">Basenji</option>
+          <option value="mixed">Mixed Breed</option>
+          <option value="other">Other Breed</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Age</label>
+        <select id="dog-age" onchange="this.classList.add('selected')">
+          <option value="" disabled selected>Select age</option>
+          <option value="young">Under 5 years</option>
+          <option value="mid">5 – 6 years</option>
+          <option value="senior1">7 – 8 years</option>
+          <option value="senior2">9 – 10 years</option>
+          <option value="senior3">11+ years</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Primary concern</label>
+        <select id="dog-concern" onchange="this.classList.add('selected')">
+          <option value="" disabled selected>Select one</option>
+          <option value="joint">Moving slower / stiff</option>
+          <option value="coat">Dull coat / skin</option>
+          <option value="gut">Digestion / appetite</option>
+          <option value="brain">Less alert / confused</option>
+          <option value="inflam">Restless / discomfort</option>
+          <option value="unsure">Not sure yet</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Your email address</label>
+      <input type="email" id="email" placeholder="you@email.com" autocomplete="email" inputmode="email">
+    </div>
+
+    <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">
+      Get Your Dog's Wellness Profile →
+    </button>
+    <div class="error-msg" id="error-msg"></div>
+    <p class="fine-print">Free · No spam · Unsubscribe anytime<br><a href="/privacy">Privacy Policy</a></p>
+  </div>
+
+  <div class="benefits">
+    <h3>Your profile covers</h3>
+    <div class="benefit-row"><div class="benefit-icon joint">🦴</div><div class="benefit-text">Joint & Mobility — stiffness, movement changes, breed-specific risks</div></div>
+    <div class="benefit-row"><div class="benefit-icon coat">✨</div><div class="benefit-text">Skin & Coat — dullness, shedding, dry skin indicators</div></div>
+    <div class="benefit-row"><div class="benefit-icon gut">🛡️</div><div class="benefit-text">Gut & Immune — appetite shifts, digestion, energy levels</div></div>
+    <div class="benefit-row"><div class="benefit-icon brain">🧠</div><div class="benefit-text">Brain & Cognitive — alertness, confusion, sleep quality</div></div>
+    <div class="benefit-row"><div class="benefit-icon inflam">🔥</div><div class="benefit-text">Inflammation — restlessness, hidden discomfort, recovery</div></div>
+  </div>
+
+  <div class="trust-strip">✦ Personalized to your dog's breed, age &amp; concerns · 5 areas reviewed · Delivered to your inbox</div>
+
+  <div class="quiz-nudge">
+    <div class="quiz-nudge-card">
+      <p>Want an even <strong>deeper breakdown</strong>? Our full 90-second quiz asks 7 questions for a more detailed profile.</p>
+      <a class="quiz-link" href="/">Take the Full Quiz Instead →</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- THANK YOU -->
+<div class="thank-you" id="thank-you">
+  <div class="check-circle">✓</div>
+  <h2 id="ty-heading">Profile on the way.</h2>
+  <p class="ty-sub" id="ty-sub"></p>
+  <div class="ty-email" id="ty-email"></div>
+  <div class="ty-areas">
+    <div class="ty-area" data-area="Joint & Mobility"><div class="ty-area-dot" style="background:#0B4D37"></div> Joint & Mobility</div>
+    <div class="ty-area" data-area="Skin & Coat"><div class="ty-area-dot" style="background:#B8874F"></div> Skin & Coat</div>
+    <div class="ty-area" data-area="Gut & Immune"><div class="ty-area-dot" style="background:#0B7490"></div> Gut & Immune</div>
+    <div class="ty-area" data-area="Brain & Cognitive"><div class="ty-area-dot" style="background:#5B35A0"></div> Brain & Cognitive</div>
+    <div class="ty-area" data-area="Inflammation"><div class="ty-area-dot" style="background:#C0391A"></div> Inflammation</div>
+  </div>
+  <div class="ty-divider"></div>
+  <p class="ty-quiz-prompt">Want a deeper, more detailed breakdown?</p>
+  <a class="ty-quiz-btn" href="/">Take the Full 90-Second Quiz →</a>
+</div>
+
+<div class="gold-bar"></div>
+<div class="footer">
+  <div class="footer-brand">Pawgevity Wellness™</div>
+  <div class="footer-sub">An Acervus Brands LLC Company · pawgevitywellness.com</div>
+</div>
+
+<script>
+var KID='Vbubpy',LID='Vzr5VU';
+
+// Display names for Klaviyo profile
+var BREEDS={
+  labrador:'Labrador Retriever',golden:'Golden Retriever',cocker:'Cocker Spaniel',
+  springer:'English Springer Spaniel',cavalier:'Cavalier King Charles Spaniel',
+  german_shepherd:'German Shepherd',australian_shepherd:'Australian Shepherd',
+  border_collie:'Border Collie',corgi:'Corgi',sheltie:'Shetland Sheepdog',
+  yorkie:'Yorkshire Terrier',schnauzer:'Miniature Schnauzer',boston:'Boston Terrier',
+  jack_russell:'Jack Russell Terrier',westie:'West Highland White Terrier',
+  french_bulldog:'French Bulldog',english_bulldog:'English Bulldog',
+  pit_bull:'Pit Bull / Am. Staffordshire',boxer:'Boxer',
+  chihuahua:'Chihuahua',shih_tzu:'Shih Tzu',pomeranian:'Pomeranian',
+  maltese:'Maltese',dachshund:'Dachshund',havanese:'Havanese',
+  bichon:'Bichon Frise',pug:'Pug',min_pinscher:'Miniature Pinscher',lhasa:'Lhasa Apso',
+  rottweiler:'Rottweiler',great_dane:'Great Dane',husky:'Siberian Husky',
+  doberman:'Doberman Pinscher',bernese:'Bernese Mountain Dog',cane_corso:'Cane Corso',
+  mastiff:'Mastiff',great_pyrenees:'Great Pyrenees',newfoundland:'Newfoundland',
+  st_bernard:'Saint Bernard',akita:'Akita',malamute:'Alaskan Malamute',
+  weimaraner:'Weimaraner',irish_setter:'Irish Setter',rhodesian:'Rhodesian Ridgeback',
+  standard_poodle:'Standard Poodle',mini_poodle:'Miniature / Toy Poodle',
+  goldendoodle:'Goldendoodle',labradoodle:'Labradoodle',
+  beagle:'Beagle',dalmatian:'Dalmatian',vizsla:'Vizsla',basenji:'Basenji',
+  mixed:'Mixed Breed',other:'Other Breed'
+};
+
+// Map specific breeds to scoring categories
+var BREED_CAT={
+  labrador:'retriever',golden:'retriever',cocker:'retriever',springer:'retriever',cavalier:'small',
+  german_shepherd:'shepherd',australian_shepherd:'shepherd',border_collie:'shepherd',corgi:'small',sheltie:'small',
+  yorkie:'small',schnauzer:'small',boston:'bulldog',jack_russell:'small',westie:'small',
+  french_bulldog:'bulldog',english_bulldog:'bulldog',pit_bull:'bulldog',boxer:'bulldog',
+  chihuahua:'small',shih_tzu:'small',pomeranian:'small',maltese:'small',dachshund:'small',
+  havanese:'small',bichon:'small',pug:'bulldog',min_pinscher:'small',lhasa:'small',
+  rottweiler:'large',great_dane:'large',husky:'large',doberman:'large',bernese:'large',
+  cane_corso:'large',mastiff:'large',great_pyrenees:'large',newfoundland:'large',
+  st_bernard:'large',akita:'large',malamute:'large',weimaraner:'large',
+  irish_setter:'retriever',rhodesian:'large',
+  standard_poodle:'large',mini_poodle:'small',goldendoodle:'retriever',labradoodle:'retriever',
+  beagle:'small',dalmatian:'large',vizsla:'large',basenji:'small',
+  mixed:'mixed',other:'mixed'
+};
+
+var AL={young:'Under 5 years',mid:'5-6 years',senior1:'7-8 years',senior2:'9-10 years',senior3:'11+ years'};
+var CL={joint:'Joint & Mobility',coat:'Skin & Coat',gut:'Gut & Immune',brain:'Brain & Cognitive',inflam:'Inflammation',unsure:'Not sure yet'};
+
+function ve(e){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
+
+async function handleSubmit(){
+  var n=document.getElementById('dog-name').value.trim();
+  var br=document.getElementById('dog-breed').value;
+  var a=document.getElementById('dog-age').value;
+  var c=document.getElementById('dog-concern').value;
+  var e=document.getElementById('email').value.trim();
+  var btn=document.getElementById('submit-btn');
+  var er=document.getElementById('error-msg');
+  er.style.display='none';
+
+  if(!n){er.textContent="What's your dog's name?";er.style.display='block';document.getElementById('dog-name').focus();return}
+  if(!br){er.textContent="Select your dog's breed — it shapes the health profile.";er.style.display='block';return}
+  if(!a){er.textContent="Select your dog's age — this is the biggest factor.";er.style.display='block';return}
+  if(!c){er.textContent="Pick a concern — or 'Not sure yet' if nothing stands out.";er.style.display='block';return}
+  if(!e||!ve(e)){er.textContent='Please enter a valid email address.';er.style.display='block';document.getElementById('email').focus();return}
+
+  btn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span>Building '+n+"'s profile…";
+
+  var breedName=BREEDS[br]||br;
+  var breedCat=BREED_CAT[br]||'mixed';
+
+  try{
+    await fetch('https://a.klaviyo.com/client/profiles/?company_id='+KID,{
+      method:'POST',headers:{'content-type':'application/json','revision':'2023-12-15'},
+      body:JSON.stringify({data:{type:'profile',attributes:{email:e,first_name:n,properties:{
+        dog_name:n,
+        dog_breed:breedName,
+        dog_breed_category:breedCat,
+        dog_age:AL[a]||a,
+        primary_concern:CL[c]||c,
+        source:'pawgevity_quick_capture',
+        capture_date:new Date().toISOString().split('T')[0],
+        dog_is_older:(a==='senior2'||a==='senior3')?'Yes':'No'
+      }}}})
+    });
+    await fetch('https://a.klaviyo.com/client/subscriptions/?company_id='+KID,{
+      method:'POST',headers:{'content-type':'application/json','revision':'2023-12-15'},
+      body:JSON.stringify({data:{type:'subscription',
+        attributes:{profile:{data:{type:'profile',attributes:{email:e}}}},
+        relationships:{list:{data:{type:'list',id:LID}}}}})
+    });
+  }catch(x){console.error('Klaviyo:',x)}
+
+  document.getElementById('main-content').style.display='none';
+  document.getElementById('ty-heading').textContent=n+"'s wellness profile is on the way.";
+  document.getElementById('ty-sub').textContent="We're preparing a personalized overview for "+n+" — a "+(AL[a]||'')+" "+breedName+" — based on their breed, age, and your primary concern. Check your inbox in the next few minutes.";
+  document.getElementById('ty-email').textContent='\u{1F4E7} '+e;
+
+  var sel=CL[c]||'';
+  document.querySelectorAll('.ty-area').forEach(function(el){
+    if(el.getAttribute('data-area')===sel){el.style.fontWeight='700';el.style.color='#5A1E36'}
+  });
+
+  document.getElementById('thank-you').style.display='block';
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
