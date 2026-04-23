@@ -57,16 +57,12 @@ body{font-family:'Inter',system-ui,sans-serif;background:#FAF4EE;color:#2A0F1B;m
 .benefit-icon.brain{background:#F0EBFA}
 .benefit-icon.inflam{background:#FAEAE6}
 .benefit-text{font-size:14px;color:#3D1A28;line-height:1.5;font-weight:500}
-.trust-strip{background:#F6E7D8;border-top:1px solid #E8D5C4;border-bottom:1px solid #E8D5C4;padding:16px 22px;text-align:center;font-size:13px;color:#836953;line-height:1.6;margin-bottom:24px}
-.quiz-nudge{max-width:440px;margin:0 auto 24px;padding:0 16px}
-.quiz-nudge-card{background:#5A1E36;border-radius:16px;padding:22px 20px;text-align:center}
-.quiz-nudge-card p{font-size:14px;color:rgba(246,231,216,.75);line-height:1.6;margin-bottom:14px}
-.quiz-nudge-card p strong{color:#E6C08A}
-.quiz-link{display:inline-block;background:linear-gradient(135deg,#B8874F,#D4A373,#E6C08A);color:#5A1E36;border:none;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:700;font-family:'Playfair Display',serif;text-decoration:none;cursor:pointer;transition:opacity .15s}
-.quiz-link:hover{opacity:.88}
+.trust-strip{background:#F6E7D8;border-top:1px solid #E8D5C4;border-bottom:1px solid #E8D5C4;padding:16px 22px;text-align:center;font-size:13px;color:#836953;line-height:1.6}
 .footer{background:#5A1E36;padding:16px 22px;text-align:center}
 .footer-brand{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:#E6C08A;margin-bottom:4px}
 .footer-sub{font-size:11px;color:rgba(246,231,216,.4)}
+
+/* THANK YOU */
 .thank-you{display:none;text-align:center;padding:40px 22px 32px}
 .check-circle{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#B8874F,#D4A373,#E6C08A);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:30px;color:#5A1E36}
 .thank-you h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#5A1E36;margin-bottom:10px;line-height:1.2}
@@ -76,16 +72,21 @@ body{font-family:'Inter',system-ui,sans-serif;background:#FAF4EE;color:#2A0F1B;m
 .ty-area{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:14px;font-weight:500;color:#3D1A28}
 .ty-area-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .ty-divider{height:1px;background:#E8D5C4;margin:24px 0}
-.ty-quiz-prompt{font-size:14px;color:#836953;margin-bottom:14px;line-height:1.6}
-.ty-quiz-btn{display:inline-block;background:#5A1E36;color:#F6E7D8;border:none;border-radius:12px;padding:15px 28px;font-size:15px;font-weight:600;font-family:'Playfair Display',serif;text-decoration:none;cursor:pointer;transition:opacity .15s}
-.ty-quiz-btn:hover{opacity:.85}
+.ty-founding{max-width:380px;margin:0 auto}
+.ty-founding-card{background:#5A1E36;border-radius:16px;padding:24px 22px;text-align:center}
+.ty-founding-eye{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#D4A373;margin-bottom:10px}
+.ty-founding-h{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#F6E7D8;line-height:1.25;margin-bottom:8px}
+.ty-founding-p{font-size:13px;color:rgba(246,231,216,.65);line-height:1.6;margin-bottom:18px}
+.ty-founding-btn{display:inline-block;background:linear-gradient(135deg,#B8874F,#D4A373,#E6C08A);color:#5A1E36;border:none;border-radius:10px;padding:14px 28px;font-size:14px;font-weight:700;font-family:'Playfair Display',serif;text-decoration:none;cursor:pointer;transition:opacity .15s}
+.ty-founding-btn:hover{opacity:.88}
+.ty-founding-note{font-size:11px;color:rgba(246,231,216,.4);margin-top:12px}
+
 @keyframes spin{to{transform:rotate(360deg)}}
 .spinner{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(90,30,54,.2);border-top-color:#5A1E36;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:8px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.hero,.form-card,.benefits,.quiz-nudge{animation:fadeUp .5s ease both}
+.hero,.form-card,.benefits{animation:fadeUp .5s ease both}
 .form-card{animation-delay:.1s}
 .benefits{animation-delay:.15s}
-.quiz-nudge{animation-delay:.2s}
 </style>
 </head>
 <body>
@@ -241,13 +242,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:#FAF4EE;color:#2A0F1B;m
 
   <div class="trust-strip">✦ Personalized to your dog's breed, age &amp; concerns · 5 areas reviewed · Delivered to your inbox</div>
 
-  <div class="quiz-nudge">
-    <div class="quiz-nudge-card">
-      <p>Want an even <strong>deeper breakdown</strong>? Our full 90-second quiz asks 7 questions for a more detailed profile.</p>
-      <a class="quiz-link" href="/">Take the Full Quiz Instead →</a>
-    </div>
-  </div>
-
 </div>
 
 <!-- THANK YOU -->
@@ -256,6 +250,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:#FAF4EE;color:#2A0F1B;m
   <h2 id="ty-heading">Profile on the way.</h2>
   <p class="ty-sub" id="ty-sub"></p>
   <div class="ty-email" id="ty-email"></div>
+
   <div class="ty-areas">
     <div class="ty-area" data-area="Joint & Mobility"><div class="ty-area-dot" style="background:#0B4D37"></div> Joint & Mobility</div>
     <div class="ty-area" data-area="Skin & Coat"><div class="ty-area-dot" style="background:#B8874F"></div> Skin & Coat</div>
@@ -263,9 +258,18 @@ body{font-family:'Inter',system-ui,sans-serif;background:#FAF4EE;color:#2A0F1B;m
     <div class="ty-area" data-area="Brain & Cognitive"><div class="ty-area-dot" style="background:#5B35A0"></div> Brain & Cognitive</div>
     <div class="ty-area" data-area="Inflammation"><div class="ty-area-dot" style="background:#C0391A"></div> Inflammation</div>
   </div>
+
   <div class="ty-divider"></div>
-  <p class="ty-quiz-prompt">Want a deeper, more detailed breakdown?</p>
-  <a class="ty-quiz-btn" href="/">Take the Full 90-Second Quiz →</a>
+
+  <div class="ty-founding">
+    <div class="ty-founding-card">
+      <div class="ty-founding-eye">Founding Members</div>
+      <div class="ty-founding-h">Be one of the first 500.</div>
+      <p class="ty-founding-p">Pawgevity Vitality Chews launch July 2026. Founding members get first access, free shipping on their first order, and priority on every future release.</p>
+      <a class="ty-founding-btn" href="https://pawgevitywellness.com" id="ty-founding-link">Become a Founding Member →</a>
+      <div class="ty-founding-note">500 spots · No commitment · Just early access</div>
+    </div>
+  </div>
 </div>
 
 <div class="gold-bar"></div>
@@ -277,7 +281,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:#FAF4EE;color:#2A0F1B;m
 <script>
 var KID='Vbubpy',LID='Vzr5VU';
 
-// Display names for Klaviyo profile
 var BREEDS={
   labrador:'Labrador Retriever',golden:'Golden Retriever',cocker:'Cocker Spaniel',
   springer:'English Springer Spaniel',cavalier:'Cavalier King Charles Spaniel',
@@ -301,7 +304,6 @@ var BREEDS={
   mixed:'Mixed Breed',other:'Other Breed'
 };
 
-// Map specific breeds to scoring categories
 var BREED_CAT={
   labrador:'retriever',golden:'retriever',cocker:'retriever',springer:'retriever',cavalier:'small',
   german_shepherd:'shepherd',australian_shepherd:'shepherd',border_collie:'shepherd',corgi:'small',sheltie:'small',
