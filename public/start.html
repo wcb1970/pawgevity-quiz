@@ -21,57 +21,100 @@
   --text:#2b1810;--white:#ffffff;
 }
 body{font-family:'Inter',sans-serif;background:var(--cream-light);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-
+ 
 /* NAV */
 .nav{background:var(--plum);padding:16px 24px;display:flex;align-items:center;justify-content:center}
 .nav-brand{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gold-light);letter-spacing:0.3px}
 .gold-bar{height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-mid),var(--gold-light),var(--gold-mid),var(--gold))}
-
+ 
 /* HERO */
 .hero{background:var(--cream);border-bottom:1px solid var(--cream-border);padding:40px 24px 36px;text-align:center}
 .hero-eye{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
 .hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,7vw,42px);font-weight:700;color:var(--plum);line-height:1.12;margin-bottom:14px}
 .hero h1 em{display:block;font-style:italic;color:var(--gold)}
 .hero-sub{font-size:15px;color:var(--taupe);max-width:420px;margin:0 auto;line-height:1.7}
-
+ 
 /* CONTENT */
 .content{max-width:480px;margin:0 auto;padding:28px 20px 40px}
-
+ 
 /* CARD */
 .card{background:var(--white);border:1.5px solid var(--cream-border);border-radius:20px;padding:30px 24px;margin-bottom:24px;box-shadow:0 8px 40px rgba(90,30,54,0.06)}
 .card-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--plum);text-align:center;margin-bottom:4px;line-height:1.25}
 .card-sub{font-size:13px;color:var(--taupe);text-align:center;margin-bottom:22px;line-height:1.6}
-
+ 
 /* FIELDS */
 .field{margin-bottom:16px}
-.field label{display:block;font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--taupe);margin-bottom:6px}
+.field label{display:block;font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--taupe);margin-bottom:8px}
 .field input,.field select{width:100%;padding:14px 16px;border:1.5px solid var(--cream-border);border-radius:12px;font-size:16px;font-family:'Inter',sans-serif;color:var(--text);background:var(--cream-light);transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
 .field input::placeholder{color:var(--taupe-light)}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23836953' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:42px;cursor:pointer;color:var(--taupe-light)}
-.field select.selected{color:var(--text)}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23836953' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:42px;cursor:pointer}
 .field select option{color:var(--text);background:var(--white)}
-.field select optgroup{font-weight:700;color:var(--plum);font-style:normal}
 .field input:focus,.field select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,135,79,0.15)}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-
+ 
+/* ===== BREED GRID ===== */
+.breed-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0}
+ 
+.breed-card{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;padding:16px 10px 14px;
+  border:2px solid var(--cream-border);border-radius:16px;
+  background:var(--cream-light);cursor:pointer;
+  transition:all .18s ease;text-align:center;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;min-height:88px;
+}
+.breed-card:hover{border-color:var(--gold-mid);background:var(--cream)}
+.breed-card:active{transform:scale(0.97)}
+.breed-card.selected{
+  border-color:var(--plum);background:var(--plum);
+}
+.breed-card.selected .breed-emoji{filter:none}
+.breed-card.selected .breed-label{color:var(--cream)}
+.breed-card.selected .breed-sub{color:rgba(246,231,216,0.65)}
+ 
+.breed-emoji{font-size:26px;line-height:1;display:block}
+.breed-label{font-size:13px;font-weight:600;color:var(--plum);line-height:1.2}
+.breed-sub{font-size:11px;color:var(--taupe-light);line-height:1.3;margin-top:1px}
+ 
+/* Optional specific breed input - revealed after category selection */
+.specific-breed-wrap{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease, opacity .3s ease, margin-top .3s ease;
+  opacity:0;margin-top:0;
+}
+.specific-breed-wrap.open{
+  max-height:100px;opacity:1;margin-top:12px;
+}
+.specific-breed-wrap input{
+  width:100%;padding:12px 16px;
+  border:1.5px solid var(--cream-border);border-radius:12px;
+  font-size:15px;font-family:'Inter',sans-serif;
+  color:var(--text);background:var(--cream-light);
+  transition:border-color .2s,box-shadow .2s;
+}
+.specific-breed-wrap input::placeholder{color:var(--taupe-light)}
+.specific-breed-wrap input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,135,79,0.15)}
+.specific-note{font-size:11px;color:var(--taupe-light);margin-top:6px;line-height:1.5;text-align:center}
+ 
 /* BUTTONS */
 .btn-gold{display:block;width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-mid),var(--gold-light));color:var(--plum);border:none;border-radius:12px;padding:17px 24px;font-size:16px;font-weight:700;font-family:'Playfair Display',serif;cursor:pointer;text-align:center;box-shadow:0 6px 24px rgba(184,135,79,0.3);transition:transform .15s,opacity .15s;margin-top:8px;letter-spacing:0.2px}
 .btn-gold:hover{transform:translateY(-2px)}
 .btn-gold:active{transform:translateY(0)}
-.btn-gold:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-gold:disabled{opacity:.45;cursor:not-allowed;transform:none}
 .btn-plum{display:block;width:100%;background:var(--plum);color:var(--cream);border:none;border-radius:12px;padding:17px 24px;font-size:16px;font-weight:700;font-family:'Playfair Display',serif;cursor:pointer;text-align:center;box-shadow:0 6px 24px rgba(90,30,54,0.15);transition:transform .15s,opacity .15s;margin-top:8px;letter-spacing:0.2px}
 .btn-plum:hover{transform:translateY(-2px)}
 .btn-plum:active{transform:translateY(0)}
 .btn-plum:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .error-msg{color:#b33a2e;font-size:13px;text-align:center;margin-top:10px;display:none}
 .fine-print{text-align:center;font-size:12px;color:var(--taupe-light);margin-top:14px;line-height:1.6}
-
+ 
 /* RESULTS */
 .results-eye{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;text-align:center}
 .results-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--plum);text-align:center;margin-bottom:4px;line-height:1.25}
 .results-sub{font-size:13px;color:var(--taupe);text-align:center;margin-bottom:20px;line-height:1.5}
 .results-context{font-size:12px;color:var(--taupe-light);font-style:italic;text-align:center;margin-bottom:22px;line-height:1.5;padding:0 8px}
-
+ 
 /* AREA ROWS */
 .area-row{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:14px;margin-bottom:10px;transition:all .2s}
 .area-row.revealed{background:var(--white);border:1.5px solid var(--cream-border)}
@@ -91,25 +134,25 @@ body{font-family:'Inter',sans-serif;background:var(--cream-light);color:var(--te
 .badge-stable{background:#E8F5E9;color:#2E7D32;border:1px solid #A5D6A7}
 .badge-locked{background:var(--cream);color:var(--cream-border);border:1px solid var(--cream-border);filter:blur(4px);user-select:none}
 .lock-icon{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--taupe-light);filter:none !important}
-
+ 
 /* DIVIDER */
 .divider{height:1px;background:var(--cream-border);margin:24px 0}
-
+ 
 /* EMAIL GATE */
 .email-gate{text-align:center;padding-top:4px}
 .gate-h{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--plum);margin-bottom:6px;line-height:1.3}
 .gate-p{font-size:13px;color:var(--taupe);margin-bottom:18px;line-height:1.6;max-width:340px;margin-left:auto;margin-right:auto}
 .gate-what{font-size:12px;color:var(--taupe-light);margin-top:12px;line-height:1.6}
-
+ 
 /* TRUST */
 .trust{background:var(--cream);border:1px solid var(--cream-border);border-radius:14px;padding:18px 20px;text-align:center;font-size:12px;color:var(--taupe);line-height:1.7;margin-bottom:24px}
 .trust strong{color:var(--plum);font-weight:600}
-
+ 
 /* FOOTER */
 .footer{background:var(--plum-deep);padding:18px 24px;text-align:center}
 .footer-brand{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--gold-light);margin-bottom:3px}
 .footer-sub{font-size:11px;color:rgba(246,231,216,.35)}
-
+ 
 /* THANK YOU */
 .thank-you{display:none;text-align:center;padding:8px 0 20px}
 .ty-check{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-mid),var(--gold-light));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px;color:var(--plum)}
@@ -123,7 +166,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream-light);color:var(--te
 .ty-f-btn{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-mid),var(--gold-light));color:var(--plum);border:none;border-radius:10px;padding:14px 30px;font-size:14px;font-weight:700;font-family:'Playfair Display',serif;text-decoration:none;cursor:pointer;transition:opacity .15s;box-shadow:0 4px 16px rgba(184,135,79,0.3)}
 .ty-f-btn:hover{opacity:.88}
 .ty-f-note{font-size:11px;color:rgba(246,231,216,.35);margin-top:12px}
-
+ 
 /* ANIMATIONS */
 @keyframes spin{to{transform:rotate(360deg)}}
 .spinner{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(246,231,216,.3);border-top-color:var(--cream);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:8px}
@@ -134,17 +177,21 @@ body{font-family:'Inter',sans-serif;background:var(--cream-light);color:var(--te
 .anim-delay-1{animation-delay:.1s}
 .anim-delay-2{animation-delay:.2s}
 .anim-area{animation:revealArea .35s ease both}
-
+ 
 /* STEPS */
 .step{display:none}
 .step.active{display:block}
+ 
+/* Progress bar under nav */
+.progress-bar{height:3px;background:var(--cream-border);position:relative;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));width:50%;transition:width .4s ease}
 </style>
 </head>
 <body>
-
+ 
 <nav class="nav"><div class="nav-brand">pawgevity™</div></nav>
 <div class="gold-bar"></div>
-
+ 
 <!-- ===== STEP 1: FORM ===== -->
 <div class="step active" id="step-form">
   <div class="hero">
@@ -156,89 +203,65 @@ body{font-family:'Inter',sans-serif;background:var(--cream-light);color:var(--te
     <div class="card anim-fade">
       <div class="card-title">Check your dog's wellness</div>
       <p class="card-sub">4 quick questions — results appear instantly.</p>
-
+ 
+      <!-- Dog Name -->
       <div class="field">
         <label>Your dog's name</label>
-        <input type="text" id="dog-name" placeholder="e.g. Bella, Max, Rudy…" autocomplete="off">
+        <input type="text" id="dog-name" placeholder="e.g. Bella, Max, Rudy…" autocomplete="off" autocorrect="off" autocapitalize="words">
       </div>
-
+ 
+      <!-- ===== BREED GRID — replaces native <select> ===== -->
       <div class="field">
         <label>Breed</label>
-        <select id="dog-breed" onchange="this.classList.add('selected')">
-          <option value="" disabled selected>Select your dog's breed</option>
-          <optgroup label="Retrievers &amp; Spaniels">
-            <option value="labrador">Labrador Retriever</option>
-            <option value="golden">Golden Retriever</option>
-            <option value="cocker">Cocker Spaniel</option>
-            <option value="springer">English Springer Spaniel</option>
-            <option value="cavalier">Cavalier King Charles Spaniel</option>
-          </optgroup>
-          <optgroup label="Shepherds &amp; Herding">
-            <option value="german_shepherd">German Shepherd</option>
-            <option value="australian_shepherd">Australian Shepherd</option>
-            <option value="border_collie">Border Collie</option>
-            <option value="corgi">Corgi (Pembroke / Cardigan)</option>
-            <option value="sheltie">Shetland Sheepdog</option>
-          </optgroup>
-          <optgroup label="Terriers">
-            <option value="yorkie">Yorkshire Terrier</option>
-            <option value="schnauzer">Miniature Schnauzer</option>
-            <option value="boston">Boston Terrier</option>
-            <option value="jack_russell">Jack Russell Terrier</option>
-            <option value="westie">West Highland White Terrier</option>
-          </optgroup>
-          <optgroup label="Bulldogs &amp; Bully Breeds">
-            <option value="french_bulldog">French Bulldog</option>
-            <option value="english_bulldog">English Bulldog</option>
-            <option value="pit_bull">Pit Bull / Am. Staffordshire</option>
-            <option value="boxer">Boxer</option>
-          </optgroup>
-          <optgroup label="Small Breeds">
-            <option value="chihuahua">Chihuahua</option>
-            <option value="shih_tzu">Shih Tzu</option>
-            <option value="pomeranian">Pomeranian</option>
-            <option value="maltese">Maltese</option>
-            <option value="dachshund">Dachshund</option>
-            <option value="havanese">Havanese</option>
-            <option value="bichon">Bichon Frise</option>
-            <option value="pug">Pug</option>
-            <option value="min_pinscher">Miniature Pinscher</option>
-            <option value="lhasa">Lhasa Apso</option>
-          </optgroup>
-          <optgroup label="Large &amp; Giant Breeds">
-            <option value="rottweiler">Rottweiler</option>
-            <option value="great_dane">Great Dane</option>
-            <option value="husky">Siberian Husky</option>
-            <option value="doberman">Doberman Pinscher</option>
-            <option value="bernese">Bernese Mountain Dog</option>
-            <option value="cane_corso">Cane Corso</option>
-            <option value="mastiff">Mastiff</option>
-            <option value="great_pyrenees">Great Pyrenees</option>
-            <option value="newfoundland">Newfoundland</option>
-            <option value="st_bernard">Saint Bernard</option>
-            <option value="akita">Akita</option>
-            <option value="malamute">Alaskan Malamute</option>
-            <option value="weimaraner">Weimaraner</option>
-            <option value="irish_setter">Irish Setter</option>
-            <option value="rhodesian">Rhodesian Ridgeback</option>
-          </optgroup>
-          <optgroup label="Poodles &amp; Doodles">
-            <option value="standard_poodle">Standard Poodle</option>
-            <option value="mini_poodle">Miniature / Toy Poodle</option>
-            <option value="goldendoodle">Goldendoodle</option>
-            <option value="labradoodle">Labradoodle</option>
-          </optgroup>
-          <optgroup label="Other">
-            <option value="beagle">Beagle</option>
-            <option value="dalmatian">Dalmatian</option>
-            <option value="vizsla">Vizsla</option>
-            <option value="basenji">Basenji</option>
-            <option value="mixed">Mixed Breed</option>
-            <option value="other">Other Breed</option>
-          </optgroup>
-        </select>
+        <div class="breed-grid" id="breed-grid">
+ 
+          <button type="button" class="breed-card" data-cat="retriever" data-label="Retriever &amp; Lab" onclick="selectBreed(this)">
+            <span class="breed-emoji">🐕</span>
+            <span class="breed-label">Retriever / Lab</span>
+            <span class="breed-sub">Golden, Lab, Doodle, Spaniel</span>
+          </button>
+ 
+          <button type="button" class="breed-card" data-cat="shepherd" data-label="Shepherd &amp; Herding" onclick="selectBreed(this)">
+            <span class="breed-emoji">🦮</span>
+            <span class="breed-label">Shepherd / Herding</span>
+            <span class="breed-sub">German, Aussie, Collie, Corgi</span>
+          </button>
+ 
+          <button type="button" class="breed-card" data-cat="small" data-label="Small Breed" onclick="selectBreed(this)">
+            <span class="breed-emoji">🐾</span>
+            <span class="breed-label">Small Breed</span>
+            <span class="breed-sub">Yorkie, Chihuahua, Pom, Shih Tzu</span>
+          </button>
+ 
+          <button type="button" class="breed-card" data-cat="large" data-label="Large Breed" onclick="selectBreed(this)">
+            <span class="breed-emoji">🐕‍🦺</span>
+            <span class="breed-label">Large Breed</span>
+            <span class="breed-sub">Rottweiler, Husky, Dane, Mastiff</span>
+          </button>
+ 
+          <button type="button" class="breed-card" data-cat="bulldog" data-label="Bully / Bulldog" onclick="selectBreed(this)">
+            <span class="breed-emoji">💪</span>
+            <span class="breed-label">Bully / Bulldog</span>
+            <span class="breed-sub">Frenchie, Pit Bull, Boxer, Pug</span>
+          </button>
+ 
+          <button type="button" class="breed-card" data-cat="mixed" data-label="Mixed / Other" onclick="selectBreed(this)">
+            <span class="breed-emoji">🐶</span>
+            <span class="breed-label">Mixed / Other</span>
+            <span class="breed-sub">Unique blend or unknown mix</span>
+          </button>
+ 
+        </div>
+ 
+        <!-- Optional specific breed — revealed after category tap -->
+        <div class="specific-breed-wrap" id="specific-wrap">
+          <input type="text" id="specific-breed" placeholder="Specific breed? (optional)" autocomplete="off" autocorrect="off" autocapitalize="words">
+          <div class="specific-note">Optional — helps us personalize your results further.</div>
+        </div>
       </div>
-
+      <!-- ===== END BREED GRID ===== -->
+ 
+      <!-- Age & Concern in a row -->
       <div class="field-row">
         <div class="field">
           <label>Age</label>
@@ -264,18 +287,18 @@ body{font-family:'Inter',sans-serif;background:var(--cream-light);color:var(--te
           </select>
         </div>
       </div>
-
+ 
       <button class="btn-gold" id="btn-check" onclick="showResults()">See My Dog's Results →</button>
       <div class="error-msg" id="error-1"></div>
       <p class="fine-print">Free · Instant results · No account needed</p>
     </div>
-
+ 
     <div class="trust">
       <strong>Every breed ages differently.</strong> Large breeds face joint stress earlier. Brachycephalic breeds carry gut and inflammation risks. Retrievers are genetically prone to certain cancers. Your dog's profile is shaped by who they are — not just how old they are.
     </div>
   </div>
 </div>
-
+ 
 <!-- ===== STEP 2: PARTIAL RESULTS + EMAIL GATE ===== -->
 <div class="step" id="step-results">
   <div class="content" style="padding-top:32px">
@@ -283,17 +306,17 @@ body{font-family:'Inter',sans-serif;background:var(--cream-light);color:var(--te
       <div class="results-eye">Wellness Check Results</div>
       <div class="results-title" id="r-title"></div>
       <p class="results-sub" id="r-sub"></p>
-
+ 
       <div id="area-1" class="area-row revealed anim-area" style="animation-delay:.15s"></div>
       <div id="area-2" class="area-row revealed anim-area" style="animation-delay:.25s"></div>
       <div id="area-3" class="area-row locked anim-area" style="animation-delay:.35s"></div>
       <div id="area-4" class="area-row locked anim-area" style="animation-delay:.42s"></div>
       <div id="area-5" class="area-row locked anim-area" style="animation-delay:.48s"></div>
-
+ 
       <p class="results-context" id="r-context"></p>
-
+ 
       <div class="divider"></div>
-
+ 
       <div class="email-gate anim-fade anim-delay-2">
         <div class="gate-h">Unlock <span id="gate-name"></span>'s full profile</div>
         <p class="gate-p">See all 5 areas with a detailed breakdown — what each result means, what to watch for, and questions to bring to your vet.</p>
@@ -307,7 +330,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream-light);color:var(--te
     </div>
   </div>
 </div>
-
+ 
 <!-- ===== STEP 3: THANK YOU ===== -->
 <div class="step" id="step-thanks">
   <div class="content" style="padding-top:32px">
@@ -327,22 +350,29 @@ body{font-family:'Inter',sans-serif;background:var(--cream-light);color:var(--te
     </div>
   </div>
 </div>
-
+ 
 <div class="gold-bar"></div>
 <div class="footer">
   <div class="footer-brand">Pawgevity Wellness™</div>
   <div class="footer-sub">An Acervus Brands LLC Company · pawgevitywellness.com</div>
 </div>
-
+ 
 <script>
-var KID='Vbubpy',LID='Vzr5VU';
-var BREEDS={labrador:'Labrador Retriever',golden:'Golden Retriever',cocker:'Cocker Spaniel',springer:'English Springer Spaniel',cavalier:'Cavalier King Charles Spaniel',german_shepherd:'German Shepherd',australian_shepherd:'Australian Shepherd',border_collie:'Border Collie',corgi:'Corgi',sheltie:'Shetland Sheepdog',yorkie:'Yorkshire Terrier',schnauzer:'Miniature Schnauzer',boston:'Boston Terrier',jack_russell:'Jack Russell Terrier',westie:'West Highland White Terrier',french_bulldog:'French Bulldog',english_bulldog:'English Bulldog',pit_bull:'Pit Bull / Am. Staffordshire',boxer:'Boxer',chihuahua:'Chihuahua',shih_tzu:'Shih Tzu',pomeranian:'Pomeranian',maltese:'Maltese',dachshund:'Dachshund',havanese:'Havanese',bichon:'Bichon Frise',pug:'Pug',min_pinscher:'Miniature Pinscher',lhasa:'Lhasa Apso',rottweiler:'Rottweiler',great_dane:'Great Dane',husky:'Siberian Husky',doberman:'Doberman Pinscher',bernese:'Bernese Mountain Dog',cane_corso:'Cane Corso',mastiff:'Mastiff',great_pyrenees:'Great Pyrenees',newfoundland:'Newfoundland',st_bernard:'Saint Bernard',akita:'Akita',malamute:'Alaskan Malamute',weimaraner:'Weimaraner',irish_setter:'Irish Setter',rhodesian:'Rhodesian Ridgeback',standard_poodle:'Standard Poodle',mini_poodle:'Miniature / Toy Poodle',goldendoodle:'Goldendoodle',labradoodle:'Labradoodle',beagle:'Beagle',dalmatian:'Dalmatian',vizsla:'Vizsla',basenji:'Basenji',mixed:'Mixed Breed',other:'Other Breed'};
-var BREED_CAT={labrador:'retriever',golden:'retriever',cocker:'retriever',springer:'retriever',cavalier:'small',german_shepherd:'shepherd',australian_shepherd:'shepherd',border_collie:'shepherd',corgi:'small',sheltie:'small',yorkie:'small',schnauzer:'small',boston:'bulldog',jack_russell:'small',westie:'small',french_bulldog:'bulldog',english_bulldog:'bulldog',pit_bull:'bulldog',boxer:'bulldog',chihuahua:'small',shih_tzu:'small',pomeranian:'small',maltese:'small',dachshund:'small',havanese:'small',bichon:'small',pug:'bulldog',min_pinscher:'small',lhasa:'small',rottweiler:'large',great_dane:'large',husky:'large',doberman:'large',bernese:'large',cane_corso:'large',mastiff:'large',great_pyrenees:'large',newfoundland:'large',st_bernard:'large',akita:'large',malamute:'large',weimaraner:'large',irish_setter:'retriever',rhodesian:'large',standard_poodle:'large',mini_poodle:'small',goldendoodle:'retriever',labradoodle:'retriever',beagle:'small',dalmatian:'large',vizsla:'large',basenji:'small',mixed:'mixed',other:'mixed'};
+var KID='Vbubpy', LID='Vzr5VU';
+ 
+// Breed category display labels
+var CAT_LABELS={
+  retriever:'Retriever / Lab',
+  shepherd:'Shepherd / Herding',
+  small:'Small Breed',
+  large:'Large Breed',
+  bulldog:'Bully / Bulldog',
+  mixed:'Mixed / Other'
+};
+ 
 var AL={young:'Under 5',mid:'5–6',senior1:'7–8',senior2:'9–10',senior3:'11+'};
-
-// FIX: "unsure" now maps to "Not sure yet" — no hidden concern boost
 var CL={joint:'Joint & Mobility',coat:'Skin & Coat',gut:'Gut & Immune',brain:'Brain & Cognitive',inflam:'Inflammation',unsure:'Not sure yet'};
-
+ 
 var AREA_META={
   joint:{emoji:'🦴',cls:'e-joint',name:'Joint & Mobility'},
   coat:{emoji:'✨',cls:'e-coat',name:'Skin & Coat'},
@@ -352,30 +382,42 @@ var AREA_META={
 };
 var KEYS=['joint','coat','gut','brain','inflam'];
 var FD={};
-
+var selectedBreedCat = '';
+ 
+// ===== BREED GRID SELECTION =====
+function selectBreed(el) {
+  // Deselect all
+  document.querySelectorAll('.breed-card').forEach(function(c){ c.classList.remove('selected'); });
+  // Select this one
+  el.classList.add('selected');
+  selectedBreedCat = el.getAttribute('data-cat');
+  // Reveal the optional specific breed field
+  document.getElementById('specific-wrap').classList.add('open');
+  // Focus the specific breed input after animation
+  setTimeout(function(){ document.getElementById('specific-breed').focus(); }, 350);
+}
+ 
 function ve(e){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
-
-function scoreAreas(age,breed,concern){
+ 
+function scoreAreas(age, breedCat, concern){
   var s={joint:30,coat:20,gut:20,brain:15,inflam:25};
-
-  // Age is the primary driver
+ 
+  // Age is primary driver
   if(age==='senior3'){s.joint+=30;s.brain+=28;s.inflam+=18;s.gut+=12;s.coat+=8}
   else if(age==='senior2'){s.joint+=25;s.brain+=18;s.inflam+=12;s.gut+=8;s.coat+=5}
   else if(age==='senior1'){s.joint+=18;s.brain+=12;s.inflam+=8;s.gut+=5}
   else if(age==='mid'){s.joint+=8;s.brain+=5;s.inflam+=4}
-
-  // Breed category shapes the profile
-  var cat=BREED_CAT[breed]||'mixed';
+ 
+  // Breed category shapes profile
+  var cat = breedCat || 'mixed';
   if(cat==='large'||cat==='retriever'){s.joint+=22;s.inflam+=12;s.coat+=5}
   if(cat==='bulldog'){s.gut+=18;s.coat+=12;s.inflam+=14;s.brain+=5}
   if(cat==='shepherd'){s.joint+=16;s.brain+=12;s.gut+=6}
   if(cat==='small'){s.coat+=12;s.brain+=14;s.gut+=5}
-
-  // Concern is the tiebreaker — ONLY applied if user selected a specific concern
-  // "unsure" gets NO boost — breed + age alone determine the ranking
-  if(concern&&concern!=='unsure'){s[concern]+=20}
-
-  // Sort descending by score
+ 
+  // Concern is tiebreaker — only if user picked something specific
+  if(concern && concern!=='unsure'){s[concern]+=20}
+ 
   var sorted=KEYS.slice().sort(function(a,b){return s[b]-s[a]});
   return sorted.map(function(k,i){
     var label,cls;
@@ -385,7 +427,7 @@ function scoreAreas(age,breed,concern){
     return{key:k,label:label,cls:cls};
   });
 }
-
+ 
 function buildAreaRow(el,result,revealed){
   var m=AREA_META[result.key];
   if(revealed){
@@ -396,36 +438,49 @@ function buildAreaRow(el,result,revealed){
     el.innerHTML='<div class="area-left"><div class="area-emoji '+m.cls+'">'+m.emoji+'</div><div class="area-name">'+m.name+'</div></div><span class="area-badge badge-locked">\u25cf \u25cf \u25cf</span><div class="lock-icon">🔒</div>';
   }
 }
-
+ 
 function showResults(){
   var n=document.getElementById('dog-name').value.trim();
-  var br=document.getElementById('dog-breed').value;
   var a=document.getElementById('dog-age').value;
   var c=document.getElementById('dog-concern').value;
   var er=document.getElementById('error-1');
   er.style.display='none';
+ 
   if(!n){er.textContent="What's your dog's name?";er.style.display='block';return}
-  if(!br){er.textContent="Select your dog's breed.";er.style.display='block';return}
+  if(!selectedBreedCat){er.textContent="Select your dog's breed type.";er.style.display='block';return}
   if(!a){er.textContent="Select your dog's age.";er.style.display='block';return}
   if(!c){er.textContent="Pick a concern — or 'Not sure yet'.";er.style.display='block';return}
-  FD={name:n,breed:br,age:a,concern:c};
-  var results=scoreAreas(a,br,c);
-  var bn=BREEDS[br]||br;
+ 
+  var specificBreed = document.getElementById('specific-breed').value.trim();
+  var breedDisplay = specificBreed || CAT_LABELS[selectedBreedCat] || selectedBreedCat;
+ 
+  FD={
+    name:n,
+    breedCat:selectedBreedCat,
+    breedDisplay:breedDisplay,
+    age:a,
+    concern:c
+  };
+ 
+  var results=scoreAreas(a,selectedBreedCat,c);
   var ageLbl=AL[a]||a;
+ 
   document.getElementById('r-title').textContent=n+"'s Wellness Check";
-  document.getElementById('r-sub').textContent="Based on what we know about "+bn+"s at age "+ageLbl;
-  document.getElementById('r-context').textContent="These rankings reflect breed tendencies and age-related shifts"+(c!=='unsure'?" combined with what you're already noticing":"")+". They're not a diagnosis — they're a starting point for where to pay closer attention.";
+  document.getElementById('r-sub').textContent="Based on what we know about "+breedDisplay+"s at age "+ageLbl;
+  document.getElementById('r-context').textContent="These rankings reflect breed tendencies and age-related shifts"+(c!=='unsure'?" combined with what you're already noticing":"."+(c!=='unsure'?'.':''));
   document.getElementById('gate-name').textContent=n;
+ 
   for(var i=0;i<5;i++){
     var el=document.getElementById('area-'+(i+1));
     el.style.animationDelay=(0.15+i*0.08)+'s';
     buildAreaRow(el,results[i],i<2);
   }
+ 
   document.getElementById('step-form').classList.remove('active');
   document.getElementById('step-results').classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 }
-
+ 
 async function handleUnlock(){
   var e=document.getElementById('email').value.trim();
   var btn=document.getElementById('btn-unlock');
@@ -433,17 +488,19 @@ async function handleUnlock(){
   er.style.display='none';
   if(!e||!ve(e)){er.textContent='Enter a valid email to unlock your full profile.';er.style.display='block';return}
   btn.disabled=true;
-  btn.innerHTML='<span class="spinner spinner-dark"></span>Unlocking…';
-  var bn=BREEDS[FD.breed]||FD.breed;
-  var bc=BREED_CAT[FD.breed]||'mixed';
+  btn.innerHTML='<span class="spinner spinner-dark"></span>Unlocking\u2026';
+ 
   try{
     await fetch('https://a.klaviyo.com/client/profiles/?company_id='+KID,{
       method:'POST',headers:{'content-type':'application/json','revision':'2023-12-15'},
       body:JSON.stringify({data:{type:'profile',attributes:{email:e,first_name:FD.name,properties:{
-        dog_name:FD.name,dog_breed:bn,dog_breed_category:bc,
+        dog_name:FD.name,
+        dog_breed:FD.breedDisplay,
+        dog_breed_category:FD.breedCat,
         dog_age:(AL[FD.age]||FD.age)+' years',
         primary_concern:CL[FD.concern]||FD.concern,
-        source:'pawgevity_quick_capture',capture_date:new Date().toISOString().split('T')[0],
+        source:'pawgevity_quick_capture',
+        capture_date:new Date().toISOString().split('T')[0],
         dog_is_older:(FD.age==='senior2'||FD.age==='senior3')?'Yes':'No'
       }}}})
     });
@@ -454,10 +511,11 @@ async function handleUnlock(){
         relationships:{list:{data:{type:'list',id:LID}}}}})
     });
   }catch(x){console.error(x)}
+ 
   document.getElementById('step-results').classList.remove('active');
   document.getElementById('step-thanks').classList.add('active');
   document.getElementById('ty-heading').textContent=FD.name+"'s full profile is on the way.";
-  document.getElementById('ty-sub').textContent="We're sending the complete 5-area breakdown for "+FD.name+" — a "+bn+" at age "+(AL[FD.age]||FD.age)+" — including what each result means and questions worth bringing to your vet.";
+  document.getElementById('ty-sub').textContent="We're sending the complete 5-area breakdown for "+FD.name+" — a "+FD.breedDisplay+" at age "+(AL[FD.age]||FD.age)+" — including what each result means and questions worth bringing to your vet.";
   document.getElementById('ty-email').textContent='\u{1F4E7} '+e;
   window.scrollTo({top:0,behavior:'smooth'});
 }
