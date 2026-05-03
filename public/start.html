@@ -11,6 +11,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','514281692490761');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=514281692490761&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -479,6 +491,8 @@ function showResults(){
   document.getElementById('step-form').classList.remove('active');
   document.getElementById('step-results').classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
+  // Meta Pixel: form completed, results shown — tracks form CVR
+  if(typeof fbq==='function'){fbq('trackCustom','QuizFormComplete',{breed_category:selectedBreedCat,dog_age:a,primary_concern:c});}
 }
  
 async function handleUnlock(){
@@ -514,6 +528,8 @@ async function handleUnlock(){
  
   document.getElementById('step-results').classList.remove('active');
   document.getElementById('step-thanks').classList.add('active');
+  // Meta Pixel: email submitted — tracks email gate CVR
+  if(typeof fbq==='function'){fbq('track','Lead',{content_name:'quiz_email_capture',breed_category:FD.breedCat,dog_age:FD.age});}
   document.getElementById('ty-heading').textContent=FD.name+"'s full profile is on the way.";
   document.getElementById('ty-sub').textContent="We're sending the complete 5-area breakdown for "+FD.name+" — a "+FD.breedDisplay+" at age "+(AL[FD.age]||FD.age)+" — including what each result means and questions worth bringing to your vet.";
   document.getElementById('ty-email').textContent='\u{1F4E7} '+e;
@@ -522,3 +538,4 @@ async function handleUnlock(){
 </script>
 </body>
 </html>
+ 
