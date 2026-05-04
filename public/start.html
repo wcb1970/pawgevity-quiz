@@ -4,173 +4,58 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#5A1E36">
-<meta name="description" content="Free personalized wellness profile for your dog. 5 health areas reviewed based on breed, age, and concerns.">
-<meta property="og:title" content="Pawgevity — Free Dog Wellness Profile">
-<meta property="og:description" content="We checked 5 health areas. 2 need attention. Find out which ones.">
-<title>Pawgevity — Free Dog Wellness Profile</title>
+<meta name="description" content="7 smart questions to ask your vet about your aging dog. Free printable checklist for your next visit.">
+<meta property="og:title" content="The Aging Dog Vet Visit Checklist — Free">
+<meta property="og:description" content="7 questions to ask your vet if your dog is slowing down, sleeping more, or acting different with age.">
+<title>Free Vet Visit Checklist — Pawgevity</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
-<!-- Meta Pixel -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','514281692490761');
-fbq('track','PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=514281692490761&ev=PageView&noscript=1"/></noscript>
-<!-- End Meta Pixel -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --plum:#5A1E36;--plum-deep:#3d1224;
-  --gold:#B8874F;--gold-mid:#D4A373;--gold-light:#E6C08A;
-  --cream:#F6E7D8;--cream-light:#fdf8f3;--cream-border:#e5d0bb;
-  --taupe:#836953;--taupe-light:#a8896f;
-  --text:#2b1810;--white:#ffffff;
-}
-body{font-family:'Inter',sans-serif;background:var(--cream-light);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
- 
-/* NAV */
-.nav{background:var(--plum);padding:16px 24px;display:flex;align-items:center;justify-content:center}
-.nav-brand{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gold-light);letter-spacing:0.3px}
+:root{--plum:#5A1E36;--plum-deep:#3d1224;--gold:#B8874F;--gold-mid:#D4A373;--gold-light:#E6C08A;--cream:#F6E7D8;--cream-light:#fdf8f3;--cream-border:#e5d0bb;--taupe:#836953;--taupe-light:#a8896f;--text:#2b1810;--white:#ffffff}
+body{font-family:'Inter',sans-serif;background:var(--cream-light);color:var(--text);-webkit-font-smoothing:antialiased}
+.nav{background:var(--plum);padding:16px 24px;text-align:center}
+.nav-brand{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gold-light)}
 .gold-bar{height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-mid),var(--gold-light),var(--gold-mid),var(--gold))}
- 
-/* HERO */
-.hero{background:var(--cream);border-bottom:1px solid var(--cream-border);padding:40px 24px 36px;text-align:center}
+.hero{background:var(--cream);border-bottom:1px solid var(--cream-border);padding:44px 24px 40px;text-align:center}
 .hero-eye{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,7vw,42px);font-weight:700;color:var(--plum);line-height:1.12;margin-bottom:14px}
-.hero h1 em{display:block;font-style:italic;color:var(--gold)}
-.hero-sub{font-size:15px;color:var(--taupe);max-width:420px;margin:0 auto;line-height:1.7}
- 
-/* CONTENT */
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(26px,7vw,40px);font-weight:700;color:var(--plum);line-height:1.12;margin-bottom:16px;max-width:480px;margin-left:auto;margin-right:auto}
+.hero-sub{font-size:16px;color:var(--taupe);max-width:440px;margin:0 auto;line-height:1.7}
 .content{max-width:480px;margin:0 auto;padding:28px 20px 40px}
- 
-/* CARD */
 .card{background:var(--white);border:1.5px solid var(--cream-border);border-radius:20px;padding:30px 24px;margin-bottom:24px;box-shadow:0 8px 40px rgba(90,30,54,0.06)}
-.card-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--plum);text-align:center;margin-bottom:4px;line-height:1.25}
-.card-sub{font-size:13px;color:var(--taupe);text-align:center;margin-bottom:22px;line-height:1.6}
- 
-/* FIELDS */
-.field{margin-bottom:16px}
-.field label{display:block;font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--taupe);margin-bottom:8px}
-.field input,.field select{width:100%;padding:14px 16px;border:1.5px solid var(--cream-border);border-radius:12px;font-size:16px;font-family:'Inter',sans-serif;color:var(--text);background:var(--cream-light);transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.inside-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.inside-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0}
+.inside-check{color:var(--gold);font-size:16px;flex-shrink:0;margin-top:1px}
+.inside-text{font-size:14px;color:var(--text);line-height:1.6;font-weight:500}
+.divider{height:1px;background:var(--cream-border);margin:22px 0}
+.form-section{text-align:center}
+.form-h{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--plum);margin-bottom:6px;line-height:1.3}
+.form-p{font-size:13px;color:var(--taupe);margin-bottom:18px;line-height:1.6}
+.field{margin-bottom:14px}
+.field input{width:100%;padding:15px 18px;border:1.5px solid var(--cream-border);border-radius:12px;font-size:16px;font-family:'Inter',sans-serif;color:var(--text);background:var(--cream-light);transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
 .field input::placeholder{color:var(--taupe-light)}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23836953' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:42px;cursor:pointer}
-.field select option{color:var(--text);background:var(--white)}
-.field input:focus,.field select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,135,79,0.15)}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
- 
-/* ===== BREED GRID ===== */
-.breed-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0}
- 
-.breed-card{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:6px;padding:16px 10px 14px;
-  border:2px solid var(--cream-border);border-radius:16px;
-  background:var(--cream-light);cursor:pointer;
-  transition:all .18s ease;text-align:center;
-  -webkit-tap-highlight-color:transparent;
-  user-select:none;min-height:88px;
-}
-.breed-card:hover{border-color:var(--gold-mid);background:var(--cream)}
-.breed-card:active{transform:scale(0.97)}
-.breed-card.selected{
-  border-color:var(--plum);background:var(--plum);
-}
-.breed-card.selected .breed-emoji{filter:none}
-.breed-card.selected .breed-label{color:var(--cream)}
-.breed-card.selected .breed-sub{color:rgba(246,231,216,0.65)}
- 
-.breed-emoji{font-size:26px;line-height:1;display:block}
-.breed-label{font-size:13px;font-weight:600;color:var(--plum);line-height:1.2}
-.breed-sub{font-size:11px;color:var(--taupe-light);line-height:1.3;margin-top:1px}
- 
-/* Optional specific breed input - revealed after category selection */
-.specific-breed-wrap{
-  max-height:0;overflow:hidden;
-  transition:max-height .35s ease, opacity .3s ease, margin-top .3s ease;
-  opacity:0;margin-top:0;
-}
-.specific-breed-wrap.open{
-  max-height:100px;opacity:1;margin-top:12px;
-}
-.specific-breed-wrap input{
-  width:100%;padding:12px 16px;
-  border:1.5px solid var(--cream-border);border-radius:12px;
-  font-size:15px;font-family:'Inter',sans-serif;
-  color:var(--text);background:var(--cream-light);
-  transition:border-color .2s,box-shadow .2s;
-}
-.specific-breed-wrap input::placeholder{color:var(--taupe-light)}
-.specific-breed-wrap input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,135,79,0.15)}
-.specific-note{font-size:11px;color:var(--taupe-light);margin-top:6px;line-height:1.5;text-align:center}
- 
-/* BUTTONS */
-.btn-gold{display:block;width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-mid),var(--gold-light));color:var(--plum);border:none;border-radius:12px;padding:17px 24px;font-size:16px;font-weight:700;font-family:'Playfair Display',serif;cursor:pointer;text-align:center;box-shadow:0 6px 24px rgba(184,135,79,0.3);transition:transform .15s,opacity .15s;margin-top:8px;letter-spacing:0.2px}
+.field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,135,79,0.15)}
+.btn-gold{display:block;width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-mid),var(--gold-light));color:var(--plum);border:none;border-radius:12px;padding:18px 24px;font-size:17px;font-weight:700;font-family:'Playfair Display',serif;cursor:pointer;text-align:center;box-shadow:0 6px 24px rgba(184,135,79,0.3);transition:transform .15s,opacity .15s;letter-spacing:0.2px}
 .btn-gold:hover{transform:translateY(-2px)}
 .btn-gold:active{transform:translateY(0)}
-.btn-gold:disabled{opacity:.45;cursor:not-allowed;transform:none}
-.btn-plum{display:block;width:100%;background:var(--plum);color:var(--cream);border:none;border-radius:12px;padding:17px 24px;font-size:16px;font-weight:700;font-family:'Playfair Display',serif;cursor:pointer;text-align:center;box-shadow:0 6px 24px rgba(90,30,54,0.15);transition:transform .15s,opacity .15s;margin-top:8px;letter-spacing:0.2px}
-.btn-plum:hover{transform:translateY(-2px)}
-.btn-plum:active{transform:translateY(0)}
-.btn-plum:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-gold:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .error-msg{color:#b33a2e;font-size:13px;text-align:center;margin-top:10px;display:none}
-.fine-print{text-align:center;font-size:12px;color:var(--taupe-light);margin-top:14px;line-height:1.6}
- 
-/* RESULTS */
-.results-eye{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;text-align:center}
-.results-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--plum);text-align:center;margin-bottom:4px;line-height:1.25}
-.results-sub{font-size:13px;color:var(--taupe);text-align:center;margin-bottom:20px;line-height:1.5}
-.results-context{font-size:12px;color:var(--taupe-light);font-style:italic;text-align:center;margin-bottom:22px;line-height:1.5;padding:0 8px}
- 
-/* AREA ROWS */
-.area-row{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:14px;margin-bottom:10px;transition:all .2s}
-.area-row.revealed{background:var(--white);border:1.5px solid var(--cream-border)}
-.area-row.locked{background:var(--cream);border:1.5px solid var(--cream-border);position:relative}
-.area-left{display:flex;align-items:center;gap:12px}
-.area-emoji{font-size:20px;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.area-emoji.e-joint{background:#E8F4EF}
-.area-emoji.e-coat{background:#FBF3E3}
-.area-emoji.e-gut{background:#E5F6FA}
-.area-emoji.e-brain{background:#F0EBFA}
-.area-emoji.e-inflam{background:#FAEAE6}
-.area-name{font-size:14px;font-weight:600;color:var(--plum)}
-.area-row.locked .area-name{color:var(--taupe)}
-.area-badge{font-size:11px;font-weight:600;padding:5px 14px;border-radius:20px;white-space:nowrap;letter-spacing:0.3px}
-.badge-alert{background:#FFF3E0;color:#BF360C;border:1px solid #FFCC80}
-.badge-watch{background:#FFF8E1;color:#F57F17;border:1px solid #FFE082}
-.badge-stable{background:#E8F5E9;color:#2E7D32;border:1px solid #A5D6A7}
-.badge-locked{background:var(--cream);color:var(--cream-border);border:1px solid var(--cream-border);filter:blur(4px);user-select:none}
-.lock-icon{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--taupe-light);filter:none !important}
- 
-/* DIVIDER */
-.divider{height:1px;background:var(--cream-border);margin:24px 0}
- 
-/* EMAIL GATE */
-.email-gate{text-align:center;padding-top:4px}
-.gate-h{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--plum);margin-bottom:6px;line-height:1.3}
-.gate-p{font-size:13px;color:var(--taupe);margin-bottom:18px;line-height:1.6;max-width:340px;margin-left:auto;margin-right:auto}
-.gate-what{font-size:12px;color:var(--taupe-light);margin-top:12px;line-height:1.6}
- 
-/* TRUST */
-.trust{background:var(--cream);border:1px solid var(--cream-border);border-radius:14px;padding:18px 20px;text-align:center;font-size:12px;color:var(--taupe);line-height:1.7;margin-bottom:24px}
-.trust strong{color:var(--plum);font-weight:600}
- 
-/* FOOTER */
+.founding-note{background:var(--cream);border:1px solid var(--cream-border);border-radius:10px;padding:14px 16px;margin-top:16px;text-align:center;font-size:12px;color:var(--taupe);line-height:1.6}
+.founding-note strong{color:var(--plum);font-weight:700}
+.fine-print{text-align:center;font-size:11px;color:var(--taupe-light);margin-top:12px;line-height:1.5}
+.proof{text-align:center;font-size:12px;color:var(--taupe);margin-bottom:24px;line-height:1.6}
+.proof strong{color:var(--plum)}
 .footer{background:var(--plum-deep);padding:18px 24px;text-align:center}
 .footer-brand{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--gold-light);margin-bottom:3px}
 .footer-sub{font-size:11px;color:rgba(246,231,216,.35)}
- 
-/* THANK YOU */
 .thank-you{display:none;text-align:center;padding:8px 0 20px}
 .ty-check{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-mid),var(--gold-light));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px;color:var(--plum)}
 .ty-h{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--plum);margin-bottom:10px;line-height:1.2}
-.ty-sub{font-size:15px;color:var(--taupe);line-height:1.7;max-width:380px;margin:0 auto 20px}
-.ty-email{background:var(--cream);border:1px solid var(--cream-border);border-radius:12px;padding:12px 20px;font-size:14px;font-weight:600;color:var(--plum);display:inline-block;margin-bottom:28px}
+.ty-sub{font-size:15px;color:var(--taupe);line-height:1.7;max-width:380px;margin:0 auto 24px}
+.ty-download{display:inline-block;background:var(--plum);color:var(--cream);border:none;border-radius:12px;padding:16px 32px;font-size:16px;font-weight:700;font-family:'Playfair Display',serif;text-decoration:none;cursor:pointer;transition:opacity .15s;box-shadow:0 6px 20px rgba(90,30,54,0.2);margin-bottom:24px}
+.ty-download:hover{opacity:.85}
+.ty-email-note{font-size:13px;color:var(--taupe);margin-bottom:28px;line-height:1.5}
 .ty-founding{background:var(--plum);border-radius:18px;padding:28px 24px;text-align:center;max-width:400px;margin:0 auto}
 .ty-f-eye{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-mid);margin-bottom:12px}
 .ty-f-h{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:var(--cream);line-height:1.25;margin-bottom:8px}
@@ -178,364 +63,90 @@ body{font-family:'Inter',sans-serif;background:var(--cream-light);color:var(--te
 .ty-f-btn{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-mid),var(--gold-light));color:var(--plum);border:none;border-radius:10px;padding:14px 30px;font-size:14px;font-weight:700;font-family:'Playfair Display',serif;text-decoration:none;cursor:pointer;transition:opacity .15s;box-shadow:0 4px 16px rgba(184,135,79,0.3)}
 .ty-f-btn:hover{opacity:.88}
 .ty-f-note{font-size:11px;color:rgba(246,231,216,.35);margin-top:12px}
- 
-/* ANIMATIONS */
 @keyframes spin{to{transform:rotate(360deg)}}
-.spinner{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(246,231,216,.3);border-top-color:var(--cream);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:8px}
-.spinner-dark{border:2.5px solid rgba(90,30,54,.15);border-top-color:var(--plum)}
+.spinner{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(90,30,54,.15);border-top-color:var(--plum);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:8px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-@keyframes revealArea{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
 .anim-fade{animation:fadeUp .45s ease both}
-.anim-delay-1{animation-delay:.1s}
-.anim-delay-2{animation-delay:.2s}
-.anim-area{animation:revealArea .35s ease both}
- 
-/* STEPS */
+.anim-d1{animation-delay:.1s}
+.anim-d2{animation-delay:.2s}
 .step{display:none}
 .step.active{display:block}
- 
-/* Progress bar under nav */
-.progress-bar{height:3px;background:var(--cream-border);position:relative;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));width:50%;transition:width .4s ease}
 </style>
 </head>
 <body>
- 
 <nav class="nav"><div class="nav-brand">pawgevity™</div></nav>
 <div class="gold-bar"></div>
- 
-<!-- ===== STEP 1: FORM ===== -->
 <div class="step active" id="step-form">
   <div class="hero">
-    <div class="hero-eye">Free Dog Wellness Check</div>
-    <h1>They gave you their best years.<em>Now it's your turn.</em></h1>
-    <p class="hero-sub">Every breed ages differently. Tell us about your dog and we'll show you which of the 5 key wellness areas deserve the most attention right now.</p>
+    <div class="hero-eye">Free Printable Checklist</div>
+    <h1>Is your dog slowing down? Bring this to your next vet visit.</h1>
+    <p class="hero-sub">7 smart questions to ask your vet about mobility, energy, digestion, coat changes, and everyday comfort in aging dogs.</p>
   </div>
   <div class="content">
     <div class="card anim-fade">
-      <div class="card-title">Check your dog's wellness</div>
-      <p class="card-sub">4 quick questions — results appear instantly.</p>
- 
-      <!-- Dog Name -->
-      <div class="field">
-        <label>Your dog's name</label>
-        <input type="text" id="dog-name" placeholder="e.g. Bella, Max, Rudy…" autocomplete="off" autocorrect="off" autocapitalize="words">
-      </div>
- 
-      <!-- ===== BREED GRID — replaces native <select> ===== -->
-      <div class="field">
-        <label>Breed</label>
-        <div class="breed-grid" id="breed-grid">
- 
-          <button type="button" class="breed-card" data-cat="retriever" data-label="Retriever &amp; Lab" onclick="selectBreed(this)">
-            <span class="breed-emoji">🐕</span>
-            <span class="breed-label">Retriever / Lab</span>
-            <span class="breed-sub">Golden, Lab, Doodle, Spaniel</span>
-          </button>
- 
-          <button type="button" class="breed-card" data-cat="shepherd" data-label="Shepherd &amp; Herding" onclick="selectBreed(this)">
-            <span class="breed-emoji">🦮</span>
-            <span class="breed-label">Shepherd / Herding</span>
-            <span class="breed-sub">German, Aussie, Collie, Corgi</span>
-          </button>
- 
-          <button type="button" class="breed-card" data-cat="small" data-label="Small Breed" onclick="selectBreed(this)">
-            <span class="breed-emoji">🐾</span>
-            <span class="breed-label">Small Breed</span>
-            <span class="breed-sub">Yorkie, Chihuahua, Pom, Shih Tzu</span>
-          </button>
- 
-          <button type="button" class="breed-card" data-cat="large" data-label="Large Breed" onclick="selectBreed(this)">
-            <span class="breed-emoji">🐕‍🦺</span>
-            <span class="breed-label">Large Breed</span>
-            <span class="breed-sub">Rottweiler, Husky, Dane, Mastiff</span>
-          </button>
- 
-          <button type="button" class="breed-card" data-cat="bulldog" data-label="Bully / Bulldog" onclick="selectBreed(this)">
-            <span class="breed-emoji">💪</span>
-            <span class="breed-label">Bully / Bulldog</span>
-            <span class="breed-sub">Frenchie, Pit Bull, Boxer, Pug</span>
-          </button>
- 
-          <button type="button" class="breed-card" data-cat="mixed" data-label="Mixed / Other" onclick="selectBreed(this)">
-            <span class="breed-emoji">🐶</span>
-            <span class="breed-label">Mixed / Other</span>
-            <span class="breed-sub">Unique blend or unknown mix</span>
-          </button>
- 
-        </div>
- 
-        <!-- Optional specific breed — revealed after category tap -->
-        <div class="specific-breed-wrap" id="specific-wrap">
-          <input type="text" id="specific-breed" placeholder="Specific breed? (optional)" autocomplete="off" autocorrect="off" autocapitalize="words">
-          <div class="specific-note">Optional — helps us personalize your results further.</div>
-        </div>
-      </div>
-      <!-- ===== END BREED GRID ===== -->
- 
-      <!-- Age & Concern in a row -->
-      <div class="field-row">
-        <div class="field">
-          <label>Age</label>
-          <select id="dog-age" onchange="this.classList.add('selected')">
-            <option value="" disabled selected>Select age</option>
-            <option value="young">Under 5 years</option>
-            <option value="mid">5 – 6 years</option>
-            <option value="senior1">7 – 8 years</option>
-            <option value="senior2">9 – 10 years</option>
-            <option value="senior3">11+ years</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Main concern</label>
-          <select id="dog-concern" onchange="this.classList.add('selected')">
-            <option value="" disabled selected>Select one</option>
-            <option value="joint">Stiffness / slowing</option>
-            <option value="coat">Coat / skin changes</option>
-            <option value="gut">Digestion / appetite</option>
-            <option value="brain">Less alert / confused</option>
-            <option value="inflam">Discomfort / restless</option>
-            <option value="unsure">Not sure yet</option>
-          </select>
-        </div>
-      </div>
- 
-      <button class="btn-gold" id="btn-check" onclick="showResults()">See My Dog's Results →</button>
-      <div class="error-msg" id="error-1"></div>
-      <p class="fine-print">Free · Instant results · No account needed</p>
-    </div>
- 
-    <div class="trust">
-      <strong>Every breed ages differently.</strong> Large breeds face joint stress earlier. Brachycephalic breeds carry gut and inflammation risks. Retrievers are genetically prone to certain cancers. Your dog's profile is shaped by who they are — not just how old they are.
-    </div>
-  </div>
-</div>
- 
-<!-- ===== STEP 2: PARTIAL RESULTS + EMAIL GATE ===== -->
-<div class="step" id="step-results">
-  <div class="content" style="padding-top:32px">
-    <div class="card anim-fade">
-      <div class="results-eye">Wellness Check Results</div>
-      <div class="results-title" id="r-title"></div>
-      <p class="results-sub" id="r-sub"></p>
- 
-      <div id="area-1" class="area-row revealed anim-area" style="animation-delay:.15s"></div>
-      <div id="area-2" class="area-row revealed anim-area" style="animation-delay:.25s"></div>
-      <div id="area-3" class="area-row locked anim-area" style="animation-delay:.35s"></div>
-      <div id="area-4" class="area-row locked anim-area" style="animation-delay:.42s"></div>
-      <div id="area-5" class="area-row locked anim-area" style="animation-delay:.48s"></div>
- 
-      <p class="results-context" id="r-context"></p>
- 
+      <div class="inside-title">Inside the checklist</div>
+      <div class="inside-item"><div class="inside-check">✓</div><div class="inside-text">Questions that help your vet catch problems early — before small changes become bigger concerns</div></div>
+      <div class="inside-item"><div class="inside-check">✓</div><div class="inside-text">A simple way to describe what you're noticing at home — in terms your vet can act on</div></div>
+      <div class="inside-item"><div class="inside-check">✓</div><div class="inside-text">Covers all 5 key areas: joints, coat, digestion, cognition, and hidden inflammation</div></div>
+      <div class="inside-item"><div class="inside-check">✓</div><div class="inside-text">Built for dog parents who want to support aging early — not wait until things get worse</div></div>
       <div class="divider"></div>
- 
-      <div class="email-gate anim-fade anim-delay-2">
-        <div class="gate-h">Unlock <span id="gate-name"></span>'s full profile</div>
-        <p class="gate-p">See all 5 areas with a detailed breakdown — what each result means, what to watch for, and questions to bring to your vet.</p>
-        <div class="field">
-          <input type="email" id="email" placeholder="your email address" autocomplete="email" inputmode="email">
-        </div>
-        <button class="btn-plum" id="btn-unlock" onclick="handleUnlock()">Unlock Full Profile →</button>
-        <div class="error-msg" id="error-2"></div>
-        <p class="gate-what">Your full profile arrives by email in minutes.<br>Free · No spam · Unsubscribe anytime.</p>
+      <div class="form-section">
+        <div class="form-h">Get the free checklist</div>
+        <p class="form-p">Enter your email and we'll send it right over. Print it or save it on your phone.</p>
+        <div class="field"><input type="email" id="email" placeholder="your email address" autocomplete="email" inputmode="email"></div>
+        <button class="btn-gold" id="btn-submit" onclick="handleSubmit()">Send Me the Free Checklist →</button>
+        <div class="error-msg" id="error-msg"></div>
+        <div class="founding-note"><strong>Bonus:</strong> You'll also join the <strong>Pawgevity Founding 500</strong> for 25% off + free shipping when Vitality Chews™ launch this July.</div>
+        <p class="fine-print">Free · No spam · Unsubscribe anytime</p>
       </div>
     </div>
+    <div class="proof anim-fade anim-d1"><strong>Every breed ages differently.</strong> This checklist helps you and your vet focus on what matters most for your dog — not just what's obvious.</div>
   </div>
 </div>
- 
-<!-- ===== STEP 3: THANK YOU ===== -->
 <div class="step" id="step-thanks">
-  <div class="content" style="padding-top:32px">
+  <div class="content" style="padding-top:36px">
     <div class="thank-you" style="display:block">
       <div class="ty-check">✓</div>
-      <div class="ty-h" id="ty-heading"></div>
-      <p class="ty-sub" id="ty-sub"></p>
-      <div class="ty-email" id="ty-email"></div>
-      <div style="height:24px"></div>
+      <div class="ty-h">Your checklist is ready.</div>
+      <p class="ty-sub">Download it now or check your inbox — we sent a copy there too.</p>
+      <a class="ty-download" id="ty-download-btn" href="/vet-checklist.pdf" download="Pawgevity_Vet_Visit_Checklist.pdf">Download Checklist (PDF) →</a>
+      <p class="ty-email-note" id="ty-email-note"></p>
+      <div style="height:8px"></div>
       <div class="ty-founding">
-        <div class="ty-f-eye">Founding Members</div>
-        <div class="ty-f-h">Be one of the first 500.</div>
-        <p class="ty-f-p">Pawgevity Vitality Chews™ launch July 2026. Founding members get first access, free shipping, and priority on every future release.</p>
-        <a class="ty-f-btn" href="https://pawgevitywellness.com">Become a Founding Member →</a>
+        <div class="ty-f-eye">You're In</div>
+        <div class="ty-f-h">Welcome to the Founding 500.</div>
+        <p class="ty-f-p">You'll get 25% off + free shipping when Pawgevity Vitality Chews™ launch this July. We'll keep you posted — no spam, just updates that matter.</p>
+        <a class="ty-f-btn" href="https://pawgevitywellness.com">Visit Pawgevity →</a>
         <div class="ty-f-note">No commitment · Just early access</div>
       </div>
     </div>
   </div>
 </div>
- 
 <div class="gold-bar"></div>
 <div class="footer">
-  <div class="footer-brand">Pawgevity Wellness™</div>
+  <div class="footer-brand">Pawgevity™</div>
   <div class="footer-sub">An Acervus Brands LLC Company · pawgevitywellness.com</div>
 </div>
- 
 <script>
-var KID='Vbubpy', LID='Vzr5VU';
- 
-// Breed category display labels
-var CAT_LABELS={
-  retriever:'Retriever / Lab',
-  shepherd:'Shepherd / Herding',
-  small:'Small Breed',
-  large:'Large Breed',
-  bulldog:'Bully / Bulldog',
-  mixed:'Mixed / Other'
-};
- 
-var AL={young:'Under 5',mid:'5–6',senior1:'7–8',senior2:'9–10',senior3:'11+'};
-var CL={joint:'Joint & Mobility',coat:'Skin & Coat',gut:'Gut & Immune',brain:'Brain & Cognitive',inflam:'Inflammation',unsure:'Not sure yet'};
- 
-var AREA_META={
-  joint:{emoji:'🦴',cls:'e-joint',name:'Joint & Mobility'},
-  coat:{emoji:'✨',cls:'e-coat',name:'Skin & Coat'},
-  gut:{emoji:'🛡️',cls:'e-gut',name:'Gut & Immune'},
-  brain:{emoji:'🧠',cls:'e-brain',name:'Brain & Cognitive'},
-  inflam:{emoji:'🔥',cls:'e-inflam',name:'Inflammation'}
-};
-var KEYS=['joint','coat','gut','brain','inflam'];
-var FD={};
-var selectedBreedCat = '';
- 
-// ===== BREED GRID SELECTION =====
-function selectBreed(el) {
-  // Deselect all
-  document.querySelectorAll('.breed-card').forEach(function(c){ c.classList.remove('selected'); });
-  // Select this one
-  el.classList.add('selected');
-  selectedBreedCat = el.getAttribute('data-cat');
-  // Reveal the optional specific breed field
-  document.getElementById('specific-wrap').classList.add('open');
-  // Focus the specific breed input after animation
-  setTimeout(function(){ document.getElementById('specific-breed').focus(); }, 350);
-}
- 
+var KID='Vbubpy',LID='Vzr5VU';
 function ve(e){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
- 
-function scoreAreas(age, breedCat, concern){
-  var s={joint:30,coat:20,gut:20,brain:15,inflam:25};
- 
-  // Age is primary driver
-  if(age==='senior3'){s.joint+=30;s.brain+=28;s.inflam+=18;s.gut+=12;s.coat+=8}
-  else if(age==='senior2'){s.joint+=25;s.brain+=18;s.inflam+=12;s.gut+=8;s.coat+=5}
-  else if(age==='senior1'){s.joint+=18;s.brain+=12;s.inflam+=8;s.gut+=5}
-  else if(age==='mid'){s.joint+=8;s.brain+=5;s.inflam+=4}
- 
-  // Breed category shapes profile
-  var cat = breedCat || 'mixed';
-  if(cat==='large'||cat==='retriever'){s.joint+=22;s.inflam+=12;s.coat+=5}
-  if(cat==='bulldog'){s.gut+=18;s.coat+=12;s.inflam+=14;s.brain+=5}
-  if(cat==='shepherd'){s.joint+=16;s.brain+=12;s.gut+=6}
-  if(cat==='small'){s.coat+=12;s.brain+=14;s.gut+=5}
- 
-  // Concern is tiebreaker — only if user picked something specific
-  if(concern && concern!=='unsure'){s[concern]+=20}
- 
-  var sorted=KEYS.slice().sort(function(a,b){return s[b]-s[a]});
-  return sorted.map(function(k,i){
-    var label,cls;
-    if(i===0){label='→ Explore first';cls='badge-alert'}
-    else if(i<=2){label='● Worth watching';cls='badge-watch'}
-    else{label='✓ Stable';cls='badge-stable'}
-    return{key:k,label:label,cls:cls};
-  });
-}
- 
-function buildAreaRow(el,result,revealed){
-  var m=AREA_META[result.key];
-  if(revealed){
-    el.className='area-row revealed anim-area';
-    el.innerHTML='<div class="area-left"><div class="area-emoji '+m.cls+'">'+m.emoji+'</div><div class="area-name">'+m.name+'</div></div><div class="area-badge '+result.cls+'">'+result.label+'</div>';
-  }else{
-    el.className='area-row locked anim-area';
-    el.innerHTML='<div class="area-left"><div class="area-emoji '+m.cls+'">'+m.emoji+'</div><div class="area-name">'+m.name+'</div></div><span class="area-badge badge-locked">\u25cf \u25cf \u25cf</span><div class="lock-icon">🔒</div>';
-  }
-}
- 
-function showResults(){
-  var n=document.getElementById('dog-name').value.trim();
-  var a=document.getElementById('dog-age').value;
-  var c=document.getElementById('dog-concern').value;
-  var er=document.getElementById('error-1');
-  er.style.display='none';
- 
-  if(!n){er.textContent="What's your dog's name?";er.style.display='block';return}
-  if(!selectedBreedCat){er.textContent="Select your dog's breed type.";er.style.display='block';return}
-  if(!a){er.textContent="Select your dog's age.";er.style.display='block';return}
-  if(!c){er.textContent="Pick a concern — or 'Not sure yet'.";er.style.display='block';return}
- 
-  var specificBreed = document.getElementById('specific-breed').value.trim();
-  var breedDisplay = specificBreed || CAT_LABELS[selectedBreedCat] || selectedBreedCat;
- 
-  FD={
-    name:n,
-    breedCat:selectedBreedCat,
-    breedDisplay:breedDisplay,
-    age:a,
-    concern:c
-  };
- 
-  var results=scoreAreas(a,selectedBreedCat,c);
-  var ageLbl=AL[a]||a;
- 
-  document.getElementById('r-title').textContent=n+"'s Wellness Check";
-  document.getElementById('r-sub').textContent="Based on what we know about "+breedDisplay+"s at age "+ageLbl;
-  document.getElementById('r-context').textContent="These rankings reflect breed tendencies and age-related shifts"+(c!=='unsure'?" combined with what you're already noticing":"."+(c!=='unsure'?'.':''));
-  document.getElementById('gate-name').textContent=n;
- 
-  for(var i=0;i<5;i++){
-    var el=document.getElementById('area-'+(i+1));
-    el.style.animationDelay=(0.15+i*0.08)+'s';
-    buildAreaRow(el,results[i],i<2);
-  }
- 
-  document.getElementById('step-form').classList.remove('active');
-  document.getElementById('step-results').classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-  // Meta Pixel: form completed, results shown — tracks form CVR
-  if(typeof fbq==='function'){fbq('trackCustom','QuizFormComplete',{breed_category:selectedBreedCat,dog_age:a,primary_concern:c});}
-}
- 
-async function handleUnlock(){
+async function handleSubmit(){
   var e=document.getElementById('email').value.trim();
-  var btn=document.getElementById('btn-unlock');
-  var er=document.getElementById('error-2');
+  var btn=document.getElementById('btn-submit');
+  var er=document.getElementById('error-msg');
   er.style.display='none';
-  if(!e||!ve(e)){er.textContent='Enter a valid email to unlock your full profile.';er.style.display='block';return}
+  if(!e||!ve(e)){er.textContent='Please enter a valid email address.';er.style.display='block';document.getElementById('email').focus();return}
   btn.disabled=true;
-  btn.innerHTML='<span class="spinner spinner-dark"></span>Unlocking\u2026';
- 
+  btn.innerHTML='<span class="spinner"></span>Sending checklist…';
   try{
-    await fetch('https://a.klaviyo.com/client/profiles/?company_id='+KID,{
-      method:'POST',headers:{'content-type':'application/json','revision':'2023-12-15'},
-      body:JSON.stringify({data:{type:'profile',attributes:{email:e,first_name:FD.name,properties:{
-        dog_name:FD.name,
-        dog_breed:FD.breedDisplay,
-        dog_breed_category:FD.breedCat,
-        dog_age:(AL[FD.age]||FD.age)+' years',
-        primary_concern:CL[FD.concern]||FD.concern,
-        source:'pawgevity_quick_capture',
-        capture_date:new Date().toISOString().split('T')[0],
-        dog_is_older:(FD.age==='senior2'||FD.age==='senior3')?'Yes':'No'
-      }}}})
-    });
-    await fetch('https://a.klaviyo.com/client/subscriptions/?company_id='+KID,{
-      method:'POST',headers:{'content-type':'application/json','revision':'2023-12-15'},
-      body:JSON.stringify({data:{type:'subscription',
-        attributes:{profile:{data:{type:'profile',attributes:{email:e}}}},
-        relationships:{list:{data:{type:'list',id:LID}}}}})
-    });
-  }catch(x){console.error(x)}
- 
-  document.getElementById('step-results').classList.remove('active');
+    await fetch('https://a.klaviyo.com/client/profiles/?company_id='+KID,{method:'POST',headers:{'content-type':'application/json','revision':'2023-12-15'},body:JSON.stringify({data:{type:'profile',attributes:{email:e,properties:{source:'vet_checklist_landing',capture_date:new Date().toISOString().split('T')[0],founding_member:'Yes',checklist_downloaded:'Yes'}}}})});
+    await fetch('https://a.klaviyo.com/client/subscriptions/?company_id='+KID,{method:'POST',headers:{'content-type':'application/json','revision':'2023-12-15'},body:JSON.stringify({data:{type:'subscription',attributes:{profile:{data:{type:'profile',attributes:{email:e}}}},relationships:{list:{data:{type:'list',id:LID}}}}})});
+  }catch(x){console.error('Klaviyo:',x)}
+  document.getElementById('step-form').classList.remove('active');
   document.getElementById('step-thanks').classList.add('active');
-  // Meta Pixel: email submitted — tracks email gate CVR
-  if(typeof fbq==='function'){fbq('track','Lead',{content_name:'quiz_email_capture',breed_category:FD.breedCat,dog_age:FD.age});}
-  document.getElementById('ty-heading').textContent=FD.name+"'s full profile is on the way.";
-  document.getElementById('ty-sub').textContent="We're sending the complete 5-area breakdown for "+FD.name+" — a "+FD.breedDisplay+" at age "+(AL[FD.age]||FD.age)+" — including what each result means and questions worth bringing to your vet.";
-  document.getElementById('ty-email').textContent='\u{1F4E7} '+e;
+  document.getElementById('ty-email-note').textContent='A copy was also sent to '+e;
   window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
 </body>
 </html>
- 
